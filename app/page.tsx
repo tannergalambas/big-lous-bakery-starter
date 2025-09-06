@@ -1,6 +1,7 @@
 // app/page.tsx
 import Hero from '@/components/Hero';
 import ProductCard from '@/components/ProductCard';
+import InstagramFeed from '@/components/InstagramFeed';
 import { headers } from 'next/headers';
 
 type Product = {
@@ -110,6 +111,8 @@ export default async function Page() {
           </>
         )}
       </section>
+
+      <InstagramFeed />
 
       {/* Trust indicators section */}
       <section className="container py-16">
