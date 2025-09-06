@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import AddToCartClient from '@/components/AddToCartClient';
 import { formatMoney } from '@/lib/money';
+import { headers } from 'next/headers';
 
 export const dynamic = 'force-dynamic'; // avoid static paths generation in dev
 
@@ -22,10 +23,17 @@ type Product = {
   variations?: Variation[];
 };
 
-const BASE = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-
 async function fetchProduct(id: string): Promise<Product | null> {
-  const res = await fetch(`${BASE}/api/products?id=${encodeURIComponent(id)}`, {
+  // Build an absolute base URL from the request headers
+  const h = headers();
+  const host = h.get('x-forwarded-host') ?? h.get('host') ?? 'localhost:5000';
+  const proto =
+    h.get('x-forwarded-proto') ??
+    (host.includes('localhost') || host.startsWith('127.') ? 'http' : 'https');
+
+  const base = `${proto}://${host}`;
+
+  const res = await fetch(`${base}/api/products?id=${encodeURIComponent(id)}`, {
     cache: 'no-store',
   });
   if (!res.ok) return null;
