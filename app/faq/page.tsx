@@ -20,7 +20,7 @@ export default async function FaqPage() {
         {
           question: 'Do you make custom cakes?',
           answer:
-            'Absolutely. Send us a message with your theme, size, and date. We'll confirm availability and a quote.',
+            'Absolutely. Send us a message with your theme, size, and date. We will confirm availability and a quote.',
         },
       ];
 
@@ -30,7 +30,7 @@ export default async function FaqPage() {
         <div className="text-center mb-12">
           <h1 className="text-4xl lg:text-5xl font-bold gradient-text mb-6">Frequently Asked Questions</h1>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-            Got questions? We've got answers! Find everything you need to know about our bakery, 
+            Got questions? We have got answers! Find everything you need to know about our bakery, 
             orders, and services.
           </p>
         </div>
@@ -60,8 +60,8 @@ export default async function FaqPage() {
           <div className="card p-8 max-w-2xl mx-auto">
             <h3 className="text-2xl font-semibold mb-4 gradient-text">Still have questions?</h3>
             <p className="text-gray-600 mb-6">
-              Can't find what you're looking for? We're here to help! Contact us directly 
-              and we'll get back to you as soon as possible.
+              Cannot find what you are looking for? We are here to help! Contact us directly 
+              and we will get back to you as soon as possible.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="/about" className="btn btn-brand">
