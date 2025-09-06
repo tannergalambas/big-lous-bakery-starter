@@ -43,7 +43,7 @@ export default async function Page() {
   const { items = [] } = await fetchProducts();
 
   return (
-    <div className="min-h-screen">
+    <div>
       <Hero />
 
       <section className="container py-16">
