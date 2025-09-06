@@ -7,6 +7,11 @@ const nextConfig = {
         hostname: 'items-images-sandbox.s3.us-west-2.amazonaws.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '/**',
+      },
     ],
   },
   // Configure for Replit environment - allow all hosts for proxy

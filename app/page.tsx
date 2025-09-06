@@ -2,6 +2,7 @@
 import Hero from '@/components/Hero';
 import ProductCard from '@/components/ProductCard';
 import InstagramFeed from '@/components/InstagramFeed';
+import NewsletterSignup from '@/components/NewsletterSignup';
 import { headers } from 'next/headers';
 
 type Product = {
@@ -113,6 +114,8 @@ export default async function Page() {
       </section>
 
       <InstagramFeed />
+
+      <NewsletterSignup />
 
       {/* Trust indicators section */}
       <section className="container py-16">
