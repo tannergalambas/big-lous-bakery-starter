@@ -20,22 +20,60 @@ export default async function FaqPage() {
         {
           question: 'Do you make custom cakes?',
           answer:
-            'Absolutely. Send us a message with your theme, size, and date. We’ll confirm availability and a quote.',
+            'Absolutely. Send us a message with your theme, size, and date. We'll confirm availability and a quote.',
         },
       ];
 
   return (
-    <section className="container py-10">
-      <h1 className="text-2xl font-bold mb-6">FAQ</h1>
-      <div className="space-y-6">
-        {faq.map((f, i) => (
-          <div key={i} className="bg-white rounded-xl border p-4">
-            <div className="font-semibold">{f.question}</div>
-            <p className="opacity-80 mt-1">{f.answer}</p>
+    <div className="min-h-screen pt-8">
+      <section className="container py-16">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl lg:text-5xl font-bold gradient-text mb-6">Frequently Asked Questions</h1>
+          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+            Got questions? We've got answers! Find everything you need to know about our bakery, 
+            orders, and services.
+          </p>
+        </div>
+        
+        <div className="max-w-4xl mx-auto space-y-6 mb-16">
+          {faq.map((f, i) => (
+            <div key={i} className="card p-6 hover:shadow-xl transition-all duration-300 group">
+              <div className="flex items-start gap-4">
+                <div className="w-8 h-8 bg-gradient-to-br from-brand/10 to-brand/20 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-200">
+                  <svg className="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-lg mb-3 text-gray-900 group-hover:text-brand transition-colors duration-200">
+                    {f.question}
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">{f.answer}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Contact section */}
+        <div className="text-center">
+          <div className="card p-8 max-w-2xl mx-auto">
+            <h3 className="text-2xl font-semibold mb-4 gradient-text">Still have questions?</h3>
+            <p className="text-gray-600 mb-6">
+              Can't find what you're looking for? We're here to help! Contact us directly 
+              and we'll get back to you as soon as possible.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="/about" className="btn btn-brand">
+                Contact Us
+              </a>
+              <a href="/shop" className="btn bg-white border border-brand/20 text-brand hover:bg-brand/5">
+                Browse Products
+              </a>
+            </div>
           </div>
-        ))}
-      </div>
-    </section>
+        </div>
+      </section>
+    </div>
   );
 }
-
