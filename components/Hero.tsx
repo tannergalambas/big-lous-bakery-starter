@@ -21,7 +21,7 @@ export default function Hero() {
         <div className="floating-particle absolute top-60 right-1/3 w-5 h-5 bg-accent/15 rounded-full" style={{animationDelay: '1s'}}></div>
       </div>
 
-      <div className={`card p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-gradient-to-br from-white via-cream/30 to-accent/20 border-0 shadow-xl relative group transition-all duration-1000 ${isLoaded ? 'hero-loaded' : 'hero-loading'}`}>
+      <div className={`card p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-gradient-to-br from-white/95 via-green-50/30 to-emerald-50/40 backdrop-blur-sm border border-white/30 shadow-xl relative group transition-all duration-1000 ${isLoaded ? 'hero-loaded' : 'hero-loading'}`}>
         <div className="flex-1 text-center md:text-left space-y-6">
           <div className="overflow-hidden">
             <h1 className={`${pacifico.className} text-4xl md:text-5xl lg:text-6xl text-brand mb-4 drop-shadow-sm hero-title`}>
