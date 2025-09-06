@@ -15,8 +15,25 @@ html, body {
 
 body { 
   background: linear-gradient(135deg, #e9e7e2 0%, #cac2b0 30%, #e9e7e2 100%); 
+  background-attachment: fixed;
   color: var(--fg);
   font-feature-settings: "rlig" 1, "calt" 1;
+  position: relative;
+}
+
+/* Dynamic background overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(600px circle at 50% 0%, rgba(18, 51, 46, 0.02) 0%, transparent 50%),
+    radial-gradient(400px circle at 100% 100%, rgba(156, 149, 124, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .container { 
