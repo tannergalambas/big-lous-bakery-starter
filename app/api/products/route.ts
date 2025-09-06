@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server';
 export const runtime = 'nodejs';
 
 const isProd = process.env.SQUARE_ENVIRONMENT === 'production';
+const HAS_SQUARE = !!process.env.SQUARE_ACCESS_TOKEN;
 const BASE = isProd
   ? 'https://connect.squareup.com/v2'
   : 'https://connect.squareupsandbox.com/v2';
@@ -160,6 +161,83 @@ export async function GET(req: Request) {
   const id = url.searchParams.get('id');
 
   try {
+    // Light mock mode when no Square credentials are present
+    if (!HAS_SQUARE) {
+      const MOCK: any[] = [
+        {
+          id: 'mock-1',
+          name: 'Chocolate Chunk Cookies',
+          description: 'Crispy edges, gooey center, lots of chocolate.',
+          price: 3.5,
+          currency: 'USD',
+          image: '/chocolate-chunk-cookies.jpeg',
+        },
+        {
+          id: 'mock-2',
+          name: 'Cinnamon Rolls',
+          description: 'Soft rolls with brown sugar cinnamon and glaze.',
+          price: 4.25,
+          currency: 'USD',
+          image: '/3DED26DC-832D-46F6-957D-830F1EBB3331_4_5005_c.jpeg',
+        },
+        {
+          id: 'mock-3',
+          name: 'Blueberry Muffin',
+          description: 'Bursting with berries and lemon zest.',
+          price: 3.0,
+          currency: 'USD',
+          image: '/282FFA65-692C-461D-8B67-9AFA5514ABE1_4_5005_c.jpeg',
+        },
+        {
+          id: 'mock-4',
+          name: 'Apple Pie Slice',
+          description: 'Buttery crust with spiced apples.',
+          price: 4.5,
+          currency: 'USD',
+          image: '/A12FD468-BF4B-4089-91FC-AB08BB6D13EF_4_5005_c.jpeg',
+        },
+        {
+          id: 'mock-5',
+          name: 'Brownies',
+          description: 'Fudgy chocolate brownies with flake salt.',
+          price: 3.75,
+          currency: 'USD',
+          image: '/77DB1324-FF2E-471E-940B-6E714614DA23_4_5005_c.jpeg',
+        },
+        {
+          id: 'mock-6',
+          name: 'Banana Bread',
+          description: 'Moist, buttery loaf with toasted walnuts.',
+          price: 5.0,
+          currency: 'USD',
+          image: '/63A58EBB-29B9-4B83-8973-6112DC671710_4_5005_c.jpeg',
+        },
+        {
+          id: 'mock-7',
+          name: 'Lemon Bar',
+          description: 'Tart lemon curd on shortbread crust.',
+          price: 3.25,
+          currency: 'USD',
+          image: '/0036B461-78BB-4046-BC65-41651D60DB18_4_5005_c.jpeg',
+        },
+        {
+          id: 'mock-8',
+          name: 'Chocolate Cake Slice',
+          description: 'Rich chocolate layers with ganache.',
+          price: 5.5,
+          currency: 'USD',
+          image: '/8E56CCAD-C999-44CF-8302-34365D17E5D4_4_5005_c.jpeg',
+        },
+      ];
+
+      if (id) {
+        const item = MOCK.find((m) => m.id === id);
+        return NextResponse.json({ item: item ?? null });
+      }
+
+      return NextResponse.json({ items: MOCK });
+    }
+
     if (id) {
       const item = await getItemById(id);
       return NextResponse.json({ item });
