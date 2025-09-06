@@ -9,7 +9,24 @@ const nextConfig = {
       },
     ],
   },
-  // ❌ remove experimental.tsconfigPaths
+  // Configure for Replit environment - allow all hosts for proxy
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-cache, no-store, must-revalidate',
+          },
+        ],
+      },
+    ];
+  },
+  // Allow all hosts for Replit proxy
+  experimental: {
+    allowedRevalidateHeaderKeys: ['*'],
+  },
 };
 
 module.exports = nextConfig;
