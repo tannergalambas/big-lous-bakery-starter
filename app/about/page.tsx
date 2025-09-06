@@ -15,7 +15,7 @@ export default async function AboutPage() {
     '/A50EBEF1-3C66-4DF6-A00B-F4031DF26BBC_4_5005_c.jpeg';
 
   return (
-    <div className="min-h-screen pt-8">
+    <div className="pt-8">
       <section className="container py-16">
         <div className="text-center mb-12">
           <h1 className="text-4xl lg:text-5xl font-bold gradient-text mb-6">{title}</h1>

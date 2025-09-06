@@ -25,7 +25,7 @@ export default async function FaqPage() {
       ];
 
   return (
-    <div className="min-h-screen pt-8">
+    <div className="pt-8">
       <section className="container py-16">
         <div className="text-center mb-12">
           <h1 className="text-4xl lg:text-5xl font-bold gradient-text mb-6">Frequently Asked Questions</h1>
