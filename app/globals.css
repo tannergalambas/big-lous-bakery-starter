@@ -13,7 +13,7 @@ html, body {
 }
 
 body { 
-  background: linear-gradient(135deg, theme(colors.cream) 0%, theme(colors.accent/30) 100%); 
+  background: linear-gradient(135deg, #e9e7e2 0%, #cac2b0 30%, #e9e7e2 100%); 
   color: var(--fg);
   font-feature-settings: "rlig" 1, "calt" 1;
 }
@@ -41,22 +41,22 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: theme(colors.cream);
+  background: #e9e7e2;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: theme(colors.brand/40);
+  background: rgba(18, 51, 46, 0.4);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: theme(colors.brand/60);
+  background: rgba(18, 51, 46, 0.6);
 }
 
 /* Custom selection */
 ::selection {
-  background: theme(colors.brand/20);
-  color: theme(colors.brand);
+  background: rgba(18, 51, 46, 0.2);
+  color: #12332e;
 }
 
 /* Smooth fade-in animation */
@@ -86,7 +86,7 @@ body {
 }
 
 .loading-shimmer {
-  background: linear-gradient(90deg, transparent, theme(colors.white/60), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
   background-size: 200px 100%;
   animation: shimmer 1.5s infinite;
 }
