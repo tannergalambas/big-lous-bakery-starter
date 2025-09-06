@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navbar />
 
         {/* Page content */}
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 pb-4">{children}</main>
 
         {/* Global footer once */}
         <Footer />

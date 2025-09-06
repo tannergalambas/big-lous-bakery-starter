@@ -1,7 +1,6 @@
 export default function Footer() {
-  console.log('🍪 FOOTER IS RENDERING!');
   return (
-    <footer className="w-full bg-red-500 text-white border-t-8 border-yellow-400" style={{minHeight: '200px', position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 9999}}>
+    <footer className="w-full bg-gradient-to-br from-green-800 to-green-900 text-white relative overflow-hidden">
       {/* Decorative background pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 left-10 w-20 h-20 bg-white/20 rounded-full"></div>
@@ -10,14 +9,7 @@ export default function Footer() {
       </div>
       
       <div className="container py-12 relative z-10">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold mb-4">🍪 BIG LOU&apos;S BAKERY FOOTER 🍪</h2>
-          <p className="text-xl">YOU SHOULD SEE THIS BRIGHT RED FOOTER NOW!</p>
-          <div className="mt-4">
-            <h3 className="font-bold">Contact: 123 Main St • Tue–Sat 8am–4pm</h3>
-          </div>
-        </div>
-        <div className="grid md:grid-cols-3 gap-8 mb-8 mt-8">
+        <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Brand Section */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
