@@ -143,6 +143,7 @@ export default function ProductCard({ product }: { product: Product }) {
             <button
               onClick={handleAddToCart}
               disabled={isAdding}
+              aria-label={`Add ${product.name} to cart`}
               className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 cursor-pointer ${
                 isAdding 
                   ? 'bg-green-500 text-white' 

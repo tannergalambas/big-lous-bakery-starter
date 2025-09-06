@@ -30,10 +30,7 @@ async function fetchProducts(): Promise<{ items: Product[] }> {
   try {
     return JSON.parse(text);
   } catch {
-    console.error('Failed to parse /api/products response', {
-      status: res.status,
-      text,
-    });
+    // Silently handle parsing errors in production
     return { items: [] };
   }
 }

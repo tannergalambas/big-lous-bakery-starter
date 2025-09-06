@@ -58,6 +58,8 @@ export default function Navbar() {
         <button 
           className="md:hidden p-2 rounded-lg hover:bg-brand/10 transition-colors duration-200"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle mobile menu"
+          aria-expanded={isMobileMenuOpen}
         >
           <svg className={`w-6 h-6 transition-transform duration-200 ${isMobileMenuOpen ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
@@ -65,7 +67,7 @@ export default function Navbar() {
         </button>
 
         {/* Cart Button */}
-        <Link href="/cart" className="btn btn-brand relative group">
+        <Link href="/cart" className="btn btn-brand relative group" aria-label={`View cart with ${count} items`}>
           <span className="flex items-center gap-2">
             <div className="relative">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
