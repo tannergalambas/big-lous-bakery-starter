@@ -55,25 +55,40 @@ export default async function Page() {
         </div>
 
         {items.length === 0 ? (
-          <div className="text-center py-16">
-            <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-accent/20 to-brand/10 rounded-full flex items-center justify-center">
-              <svg className="w-12 h-12 text-brand/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="text-center py-16 animate-fade-in">
+            <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-accent/20 to-brand/10 rounded-full flex items-center justify-center group hover:scale-110 transition-all duration-300 animate-glow">
+              <svg className="w-12 h-12 text-brand/60 group-hover:text-brand transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-gray-700 mb-2">No products yet</h3>
-            <p className="text-gray-500 mb-6 max-w-md mx-auto">
+            <h3 className="text-2xl font-semibold gradient-text mb-4">No products yet</h3>
+            <p className="text-gray-500 mb-8 max-w-md mx-auto text-lg leading-relaxed">
               Add items in your Square Sandbox and refresh to see your delicious products here.
             </p>
-            <button onClick={() => window.location.reload()} className="btn btn-brand">
-              Refresh Products
+            <button 
+              onClick={() => window.location.reload()} 
+              className="btn btn-brand btn-enhanced hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+            >
+              <span className="flex items-center gap-2">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                Refresh Products
+              </span>
             </button>
           </div>
         ) : (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
               {items.slice(0, 8).map((p, index) => (
-                <div key={p.id} className="animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
+                <div 
+                  key={p.id} 
+                  className="animate-fade-in opacity-0" 
+                  style={{ 
+                    animationDelay: `${index * 150}ms`,
+                    animationFillMode: 'forwards'
+                  }}
+                >
                   <ProductCard product={p} />
                 </div>
               ))}
