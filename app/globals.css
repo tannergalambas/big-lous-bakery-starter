@@ -188,7 +188,7 @@ body::before {
 }
 
 .floating-particle {
-  animation: float 6s ease-in-out infinite;
+  animation: float 12s ease-in-out infinite;
 }
 
 .shimmer {

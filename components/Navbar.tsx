@@ -21,17 +21,14 @@ export default function Navbar() {
   return (
     <header className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-lg border-b border-accent/30 shadow-lg' : 'bg-white/90 backdrop-blur-md border-b border-accent/20 shadow-sm'}`}>
       <div className="container mx-auto px-4 py-4 flex items-center justify-between gap-6">
-        {/* Enhanced Logo */}
-        <Link href="/" className="flex items-center gap-3 group relative">
-          <div className={`w-10 h-10 bg-gradient-to-br from-brand to-brand/80 rounded-xl flex items-center justify-center text-white font-bold text-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 ${isScrolled ? 'shadow-lg' : 'shadow-md'}`}>
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="w-10 h-10 bg-gradient-to-br from-brand to-brand/80 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md">
             BL
           </div>
-          <span className="text-xl font-bold bg-gradient-to-r from-brand to-brand/80 bg-clip-text text-transparent group-hover:from-brand/80 group-hover:to-brand transition-all duration-300">
+          <span className="text-xl font-bold bg-gradient-to-r from-brand to-brand/80 bg-clip-text text-transparent">
             Big Lou&apos;s Bakery
           </span>
-          
-          {/* Animated underline */}
-          <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-brand to-brand/80 group-hover:w-full transition-all duration-300"></div>
         </Link>
 
         {/* Enhanced Desktop Navigation */}
@@ -46,16 +43,12 @@ export default function Navbar() {
               href={item.href} 
               className="relative py-2 px-3 text-gray-700 hover:text-brand transition-all duration-300 group"
             >
-              <span className="flex items-center gap-2 relative z-10">
-                <svg className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform -translate-x-2 group-hover:translate-x-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
-                </svg>
+              <span className="relative z-10">
                 {item.label}
               </span>
               
-              {/* Enhanced hover effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-brand/10 to-brand/5 rounded-lg scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200"></div>
-              <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand group-hover:w-full transition-all duration-300"></div>
+              {/* Simple hover underline */}
+              <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand group-hover:w-full transition-all duration-200"></div>
             </Link>
           ))}
         </nav>
@@ -70,11 +63,11 @@ export default function Navbar() {
           </svg>
         </button>
 
-        {/* Enhanced Cart Button */}
-        <Link href="/cart" className="btn btn-brand relative group overflow-hidden btn-enhanced">
-          <span className="relative z-10 flex items-center gap-2">
+        {/* Cart Button */}
+        <Link href="/cart" className="btn btn-brand relative group">
+          <span className="flex items-center gap-2">
             <div className="relative">
-              <svg className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6" />
               </svg>
               {count > 0 && (
@@ -86,10 +79,6 @@ export default function Navbar() {
             <span className="hidden sm:inline">Cart</span>
             <span className="sm:hidden">({count})</span>
           </span>
-          
-          {/* Multiple layered hover effects */}
-          <div className="absolute inset-0 bg-gradient-to-r from-brand/90 to-brand translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </Link>
       </div>
 
