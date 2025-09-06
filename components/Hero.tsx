@@ -18,15 +18,24 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="flex-1 relative w-full h-56 md:h-72 lg:h-80 rounded-2xl overflow-hidden">
+        <div className="flex-1 relative w-full h-64 md:h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl group">
+          {/* Background gradient overlay for depth */}
+          <div className="absolute inset-0 bg-gradient-to-br from-black/5 via-transparent to-black/20 z-10"></div>
+          
+          {/* Subtle inner glow effect */}
+          <div className="absolute inset-0 bg-gradient-to-t from-brand/10 via-transparent to-transparent z-20"></div>
+          
           <Image
             src="/chocolate-chunk-cookies.jpeg"
             alt="Fresh cookies from Big Lou's Bakery"
             fill
-            className="object-cover object-center"
+            className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
             priority
             sizes="(min-width:1024px) 40vw, (min-width:768px) 50vw, 90vw"
           />
+          
+          {/* Elegant border highlight */}
+          <div className="absolute inset-0 rounded-2xl ring-1 ring-white/20 ring-inset z-30"></div>
         </div>
       </div>
     </section>
