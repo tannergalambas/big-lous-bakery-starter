@@ -76,6 +76,7 @@ export default function Hero() {
               className="object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out"
               priority
               sizes="(min-width:1024px) 40vw, (min-width:768px) 50vw, 90vw"
+              style={{ objectFit: 'cover' }}
             />
             
             {/* Floating badges */}

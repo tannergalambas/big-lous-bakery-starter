@@ -85,6 +85,8 @@ export default function ProductCard({ product }: { product: Product }) {
                   className={`object-cover transition-all duration-700 ease-out ${imageLoaded ? 'scale-100 opacity-100' : 'scale-110 opacity-0'} group-hover:scale-110`}
                   sizes="(min-width:1024px) 25vw, 50vw"
                   onLoad={() => setImageLoaded(true)}
+                  loading="lazy"
+                  style={{ objectFit: 'cover' }}
                 />
                 
                 {/* Overlay effects */}

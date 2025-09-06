@@ -78,6 +78,7 @@ export default async function ProductPage({ params }: { params: { id: string } }
               className="object-cover"
               sizes="(min-width:1024px) 40vw, 90vw"
               priority
+              style={{ objectFit: 'cover' }}
             />
           ) : (
             <div className="grid place-items-center h-full opacity-60">No image</div>

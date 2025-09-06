@@ -114,6 +114,8 @@ export default function InstagramFeed() {
                 fill
                 className="object-cover group-hover:scale-110 transition-transform duration-300"
                 sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 16vw"
+                loading="lazy"
+                style={{ objectFit: 'cover' }}
               />
               
               {/* Overlay with engagement stats */}
