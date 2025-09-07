@@ -56,28 +56,47 @@ export default function CartPage() {
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <button
-                    className="btn"
-                    onClick={() => {
-                      if (item.qty > 1) add({ ...item, qty: -1 });
-                      else remove(item.id);
-                    }}
-                  >
-                    –
-                  </button>
-                  <span className="w-8 text-center">{item.qty}</span>
-                  <button className="btn" onClick={() => add({ ...item, qty: 1 })}>
-                    +
-                  </button>
+                  {/* Quantity Controls */}
+                  <div className="flex items-center bg-white rounded-lg border-2 border-gray-200 shadow-sm hover:border-brand/30 transition-all duration-200">
+                    <button
+                      className="w-10 h-10 flex items-center justify-center text-gray-600 hover:text-white hover:bg-brand rounded-l-lg transition-all duration-200 font-bold text-lg"
+                      onClick={() => {
+                        if (item.qty > 1) add({ ...item, qty: -1 });
+                        else remove(item.id);
+                      }}
+                    >
+                      –
+                    </button>
+                    <span className="w-12 h-10 flex items-center justify-center font-semibold text-lg bg-gray-50 border-x border-gray-200">
+                      {item.qty}
+                    </span>
+                    <button 
+                      className="w-10 h-10 flex items-center justify-center text-gray-600 hover:text-white hover:bg-brand rounded-r-lg transition-all duration-200 font-bold text-lg"
+                      onClick={() => add({ ...item, qty: 1 })}
+                    >
+                      +
+                    </button>
+                  </div>
 
-                  <button onClick={() => remove(item.id)} className="btn">Remove</button>
+                  {/* Remove Button */}
+                  <button 
+                    onClick={() => remove(item.id)} 
+                    className="px-4 py-2 bg-red-50 text-red-600 border border-red-200 rounded-lg hover:bg-red-100 hover:border-red-300 hover:text-red-700 transition-all duration-200 font-medium text-sm shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
+                  >
+                    Remove
+                  </button>
                 </div>
               </li>
             ))}
           </ul>
 
           <div className="flex items-center justify-between mt-8">
-            <button className="btn" onClick={clear}>Clear Cart</button>
+            <button 
+              className="px-4 py-2 bg-gray-100 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-200 hover:border-gray-400 transition-all duration-200 font-medium shadow-sm hover:shadow-md" 
+              onClick={clear}
+            >
+              Clear Cart
+            </button>
 
             <div className="text-right">
               <div className="text-lg font-semibold">
