@@ -65,8 +65,18 @@ export default function NewsletterSignup() {
             <div className="grid md:grid-cols-2 gap-8 items-center">
               {/* Content Side */}
               <div className="text-center md:text-left">
-                <h3 className="text-3xl lg:text-4xl font-bold gradient-text mb-4">
-                  Stay Sweet with Us! <span className="text-4xl">🍪</span>
+                <h3 className="text-3xl lg:text-4xl font-bold gradient-text mb-4 flex items-center gap-3 justify-center md:justify-start">
+                  Stay Sweet with Us! 
+                  <svg className="w-10 h-10 text-amber-600" fill="currentColor" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" className="fill-amber-100"/>
+                    <circle cx="9" cy="9" r="1" className="fill-amber-800"/>
+                    <circle cx="15" cy="9" r="1" className="fill-amber-800"/>
+                    <circle cx="8" cy="14" r="0.8" className="fill-amber-700"/>
+                    <circle cx="16" cy="14" r="0.8" className="fill-amber-700"/>
+                    <circle cx="12" cy="16" r="0.6" className="fill-amber-700"/>
+                    <circle cx="10" cy="12" r="0.5" className="fill-amber-700"/>
+                    <circle cx="14" cy="12" r="0.5" className="fill-amber-700"/>
+                  </svg>
                 </h3>
                 <p className="text-gray-600 text-lg mb-6 leading-relaxed">
                   Be the first to know about our seasonal specials, new treats, and exclusive offers. 
