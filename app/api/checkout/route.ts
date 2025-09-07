@@ -24,6 +24,13 @@ export async function POST(req: Request) {
     let line_items: any[] = [];
     let redirectUrl: string | undefined;
 
+    // Compute a fallback base URL from request headers (works on Vercel previews)
+    const host = req.headers.get('x-forwarded-host') || req.headers.get('host') || '';
+    const proto =
+      req.headers.get('x-forwarded-proto') ||
+      (host.includes('localhost') || host.startsWith('127.') ? 'http' : 'https');
+    const computedBase = host ? `${proto}://${host}` : undefined;
+
     if (ct.includes('application/json')) {
       // JSON (optional — you’re using form mode below, but we keep both)
       const payload = (await req.json()) as CartPayload;
@@ -86,9 +93,11 @@ export async function POST(req: Request) {
       checkout_options: {
         ask_for_shipping_address: true,
         redirect_url:
-          redirectUrl ??
+          redirectUrl ||
           (process.env.NEXT_PUBLIC_BASE_URL
             ? `${process.env.NEXT_PUBLIC_BASE_URL}/thanks`
+            : computedBase
+            ? `${computedBase}/thanks`
             : undefined),
       },
     };
