@@ -212,7 +212,7 @@ export default function ContactPage() {
           {/* Contact Information */}
           <div className="space-y-8">
             <div className="card p-8">
-              <h2 className="text-2xl font-semibold mb-6 text-brand">Visit Our Bakery</h2>
+              <h2 className="text-2xl font-semibold mb-6 text-brand">Get In Touch</h2>
               
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
@@ -224,25 +224,10 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Address</h3>
-                    <p className="text-gray-600">123 Main Street<br />Hometown, USA 12345</p>
+                    <p className="text-gray-600">Austin, Texas</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-brand/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Hours</h3>
-                    <p className="text-gray-600">
-                      Tuesday - Saturday<br />
-                      8:00 AM - 4:00 PM<br />
-                      <span className="text-sm text-gray-500">Closed Sunday & Monday</span>
-                    </p>
-                  </div>
-                </div>
 
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-brand/10 rounded-xl flex items-center justify-center flex-shrink-0">
