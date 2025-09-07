@@ -282,6 +282,9 @@ body::before {
 /* Gradient text utility */
 .gradient-text {
   @apply bg-gradient-to-r from-brand to-brand/80 bg-clip-text text-transparent;
+  line-height: 1.2;
+  padding-bottom: 0.15rem;
+  display: inline-block;
 }
 
 /* Modern glass effect */

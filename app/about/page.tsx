@@ -18,7 +18,7 @@ export default async function AboutPage() {
     <div className="pt-8">
       <section className="container py-16">
         <div className="text-center mb-12">
-          <h1 className="text-4xl lg:text-5xl font-bold gradient-text mb-6">{title}</h1>
+          <h1 className="text-4xl lg:text-5xl font-bold gradient-text mb-6" style={{lineHeight: '1.15', paddingBottom: '0.25rem'}}>{title}</h1>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg">
             Learn more about our story, our passion for baking, and what makes Big Lou's Bakery special.
           </p>
