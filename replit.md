@@ -11,7 +11,7 @@ This is a Next.js e-commerce application for Big Lou's Bakery that integrates wi
 - **Content Management**: Sanity CMS (optional)
 - **Deployment**: Configured for Replit autoscale deployment
 
-## Recent Changes (Sep 06, 2025)
+## Recent Changes (Sep 07, 2025)
 - Imported project from GitHub
 - Installed all dependencies via npm
 - Configured Next.js for Replit environment with proxy compatibility
@@ -19,6 +19,9 @@ This is a Next.js e-commerce application for Big Lou's Bakery that integrates wi
 - Configured development workflow to run on port 5000 with 0.0.0.0 host
 - Added cache control headers for proper iframe functionality
 - Configured deployment settings for production
+- Updated business model references: removed store hours (home bakery), updated location to Austin, Texas
+- Changed product freshness messaging from "daily" to "made to order"
+- Added shipping disclaimer with asterisk notation for transparency
 
 ## Environment Configuration
 The project uses environment variables for configuration:

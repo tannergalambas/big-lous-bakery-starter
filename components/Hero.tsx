@@ -31,7 +31,10 @@ export default function Hero() {
           
           <div>
             <p className="text-lg md:text-xl opacity-90 leading-relaxed max-w-lg hero-subtitle" style={{paddingBottom: '0.25rem'}}>
-              Fresh-baked cookies, custom cakes, and delicious pies. Local pickup and nationwide shipping.
+              Fresh-baked cookies, custom cakes, and delicious pies. Local pickup and nationwide shipping.*
+            </p>
+            <p className="text-sm text-gray-500 italic max-w-lg">
+              *Shipping available for select items only. See FAQ for details.
             </p>
           </div>
           

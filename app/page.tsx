@@ -123,8 +123,8 @@ export default async function Page() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h3 className="font-semibold text-lg mb-2">Fresh Daily</h3>
-            <p className="text-gray-600">Baked fresh every morning with premium ingredients</p>
+            <h3 className="font-semibold text-lg mb-2">Fresh Made to Order</h3>
+            <p className="text-gray-600">Made fresh when you order with premium ingredients</p>
           </div>
           
           <div className="text-center group">

@@ -121,7 +121,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
             {/* Floating quality badge */}
             <div className={`absolute bottom-3 left-3 bg-gradient-to-r from-brand to-brand/80 text-white text-xs px-2 py-1 rounded-full font-medium shadow-lg transition-all duration-300 ${isHovered ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-2'}`}>
-              Fresh Daily
+              Fresh Made to Order
             </div>
           </div>
         </Link>
