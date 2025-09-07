@@ -69,7 +69,7 @@ export default function ShopPage() {
       <div className="min-h-screen pt-8">
         <section className="container py-16">
           <div className="text-center mb-12">
-            <h1 className="text-4xl lg:text-5xl font-bold gradient-text mb-6">Our Bakery</h1>
+            <h1 className="text-4xl lg:text-5xl font-bold gradient-text mb-6" style={{lineHeight: '1.2', paddingBottom: '0.25rem'}}>Our Bakery</h1>
             <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
               Loading our delicious collection...
             </p>
@@ -95,7 +95,7 @@ export default function ShopPage() {
     <div className="min-h-screen pt-8">
       <section className="container py-16">
         <div className="text-center mb-12">
-          <h1 className="text-4xl lg:text-5xl font-bold gradient-text mb-6">Our Bakery</h1>
+          <h1 className="text-4xl lg:text-5xl font-bold gradient-text mb-6" style={{lineHeight: '1.2', paddingBottom: '0.25rem'}}>Our Bakery</h1>
           <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
             Explore our complete collection of handcrafted treats. From classic cookies to custom celebration cakes, 
             every item is made fresh daily with premium ingredients and traditional baking methods.

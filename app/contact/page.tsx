@@ -56,7 +56,7 @@ export default function ContactPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h1 className="text-3xl font-bold gradient-text mb-4">Thank You!</h1>
+            <h1 className="text-3xl font-bold gradient-text mb-4" style={{lineHeight: '1.2', paddingBottom: '0.25rem'}}>Thank You!</h1>
             <p className="text-gray-600 text-lg">
               We've received your message and will get back to you soon. 
               We look forward to helping you with your bakery needs!
@@ -71,7 +71,7 @@ export default function ContactPage() {
     <div className="pt-8">
       <section className="container py-16">
         <div className="text-center mb-12">
-          <h1 className="text-4xl lg:text-5xl font-bold gradient-text mb-6">Contact Us</h1>
+          <h1 className="text-4xl lg:text-5xl font-bold gradient-text mb-6" style={{lineHeight: '1.2', paddingBottom: '0.25rem'}}>Contact Us</h1>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg">
             Have questions about our products or want to place a custom order? 
             We'd love to hear from you! Fill out the form below and we'll get back to you as soon as possible.

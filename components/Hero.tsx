@@ -23,14 +23,14 @@ export default function Hero() {
 
       <div className={`card p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-gradient-to-br from-white/95 via-green-50/30 to-emerald-50/40 backdrop-blur-sm border border-white/30 shadow-xl relative group transition-all duration-1000 ${isLoaded ? 'hero-loaded' : 'hero-loading'}`}>
         <div className="flex-1 text-center md:text-left space-y-6">
-          <div className="overflow-hidden">
-            <h1 className={`${pacifico.className} text-4xl md:text-5xl lg:text-6xl text-brand mb-4 drop-shadow-sm hero-title`}>
+          <div>
+            <h1 className={`${pacifico.className} text-4xl md:text-5xl lg:text-6xl text-brand mb-4 drop-shadow-sm hero-title`} style={{lineHeight: '1.2', paddingBottom: '0.5rem'}}>
               Big Lou&apos;s Bakery
             </h1>
           </div>
           
-          <div className="overflow-hidden">
-            <p className="text-lg md:text-xl opacity-90 leading-relaxed max-w-lg hero-subtitle">
+          <div>
+            <p className="text-lg md:text-xl opacity-90 leading-relaxed max-w-lg hero-subtitle" style={{paddingBottom: '0.25rem'}}>
               Fresh-baked cookies, custom cakes, and delicious pies. Local pickup and nationwide shipping.
             </p>
           </div>

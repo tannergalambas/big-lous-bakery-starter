@@ -47,7 +47,7 @@ export default async function Page() {
 
       <section className="container py-16">
         <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold gradient-text mb-4">Featured Products</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold gradient-text mb-4" style={{lineHeight: '1.2', paddingBottom: '0.25rem'}}>Featured Products</h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg">
             Discover our most popular handcrafted treats, baked fresh daily with love and the finest ingredients.
           </p>
