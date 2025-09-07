@@ -66,7 +66,7 @@ export default function NewsletterSignup() {
               {/* Content Side */}
               <div className="text-center md:text-left">
                 <h3 className="text-3xl lg:text-4xl font-bold gradient-text mb-4">
-                  Stay Sweet with Us! 🍪
+                  Stay Sweet with Us! <span className="text-4xl">🍪</span>
                 </h3>
                 <p className="text-gray-600 text-lg mb-6 leading-relaxed">
                   Be the first to know about our seasonal specials, new treats, and exclusive offers. 
