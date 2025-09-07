@@ -88,7 +88,7 @@ export default function Footer() {
             </div>
 
             <div className="text-center md:text-right">
-              <p className="text-white/70 mb-2">Stay connected for daily updates</p>
+              <p className="text-white/70 mb-2">Stay connected for updates</p>
               <p className="text-white/60 text-sm">Fresh content • Behind the scenes • Special offers</p>
             </div>
           </div>
