@@ -4,6 +4,7 @@ import ProductCard from '@/components/ProductCard';
 import InstagramFeed from '@/components/InstagramFeed';
 import NewsletterSignup from '@/components/NewsletterSignup';
 import { headers } from 'next/headers';
+import { getPage } from '@/lib/cms';
 
 type Product = {
   id: string;
@@ -40,10 +41,12 @@ export const dynamic = 'force-dynamic';
 
 export default async function Page() {
   const { items = [] } = await fetchProducts();
+  // Optional: fetch editable home content from Sanity (slug: "home")
+  const home = await getPage('home');
 
   return (
     <div>
-      <Hero />
+      <Hero title={home?.title} subtitle={home?.content || undefined} image={home?.image || undefined} />
 
       <section className="container py-16">
         <div className="text-center mb-12">

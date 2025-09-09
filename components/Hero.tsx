@@ -4,7 +4,13 @@ import Image from 'next/image';
 import { pacifico } from '../lib/fonts';
 import { useState, useEffect } from 'react';
 
-export default function Hero() {
+type Props = {
+  title?: string;
+  subtitle?: string;
+  image?: string;
+};
+
+export default function Hero({ title, subtitle, image }: Props) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -25,13 +31,13 @@ export default function Hero() {
         <div className="flex-1 text-center md:text-left space-y-6">
           <div>
             <h1 className={`${pacifico.className} text-4xl md:text-5xl lg:text-6xl text-brand mb-4 drop-shadow-sm hero-title`} style={{lineHeight: '1.2', paddingBottom: '0.5rem'}}>
-              Big Lou&apos;s Bakery
+              {title || "Big Lou's Bakery"}
             </h1>
           </div>
           
           <div>
             <p className="text-lg md:text-xl opacity-90 leading-relaxed max-w-lg hero-subtitle" style={{paddingBottom: '0.25rem'}}>
-              Fresh-baked cookies, custom cakes, and delicious pies. Local pickup and nationwide shipping.*
+              {subtitle || 'Fresh-baked cookies, custom cakes, and delicious pies. Local pickup and nationwide shipping.*'}
             </p>
             <p className="text-sm text-gray-500 italic max-w-lg">
               *Shipping available for select items only. See FAQ for details.
@@ -73,8 +79,8 @@ export default function Hero() {
             <div className="absolute inset-0 rounded-2xl ring-2 ring-brand/20 group-hover:ring-brand/40 transition-all duration-500 animate-pulse-ring"></div>
             
             <Image
-              src="/chocolate-chunk-cookies.jpeg"
-              alt="Fresh cookies from Big Lou's Bakery"
+              src={image || "/chocolate-chunk-cookies.jpeg"}
+              alt={(title || "Big Lou's Bakery") + ' hero image'}
               fill
               className="object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out"
               priority
