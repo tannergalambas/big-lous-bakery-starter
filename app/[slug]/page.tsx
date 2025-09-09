@@ -1,9 +1,10 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { getPage, getSiteSettings } from '@/lib/cms';
+import { getPage, getSiteSettings, getBreadcrumbs } from '@/lib/cms';
 import type { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 import RichText from '@/components/RichText';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,12 +14,14 @@ export default async function CmsPage({ params }: Params) {
   const preview = draftMode().isEnabled;
   const slug = decodeURIComponent(params.slug);
   const page = await getPage(slug, preview);
+  const crumbs = await getBreadcrumbs(slug, preview);
 
   if (!page) return notFound();
 
   return (
     <div className="pt-8">
       <section className="container py-16">
+        <Breadcrumbs items={crumbs} />
         <div className="grid md:grid-cols-2 gap-12 items-start">
           <div className="space-y-6 order-2 md:order-1">
             <h1 className="text-4xl lg:text-5xl font-bold gradient-text mb-4" style={{lineHeight: '1.15'}}>

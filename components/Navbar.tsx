@@ -10,5 +10,10 @@ export default async function Navbar() {
 
   const configured = (nav?.headerLinks || []).length ? nav : autoNav;
   const links = (configured?.headerLinks || []).map((l) => ({ href: l.url || '#', label: l.label || 'Link' }));
-  return <NavbarClient siteName={settings?.siteName || "Big Lou's Bakery"} headerLinks={links.length ? links : undefined} />;
+  const items = (configured as any)?.headerTree?.map((n: any) => ({
+    href: n.url,
+    label: n.label,
+    children: (n.children || []).map((c: any) => ({ href: c.url, label: c.label })),
+  }));
+  return <NavbarClient siteName={settings?.siteName || "Big Lou's Bakery"} items={items && items.length ? items : undefined} headerLinks={!items?.length ? links : undefined} />;
 }

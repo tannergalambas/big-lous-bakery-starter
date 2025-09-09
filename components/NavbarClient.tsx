@@ -3,8 +3,11 @@ import Link from 'next/link';
 import { useCart } from '@/store/cart';
 import { useState, useEffect } from 'react';
 
+type NavItem = { href: string; label: string; children?: NavItem[] };
+
 export default function NavbarClient({
   siteName = "Big Lou's Bakery",
+  items,
   headerLinks = [
     { href: '/shop', label: 'Shop' },
     { href: '/about', label: 'About' },
@@ -12,6 +15,7 @@ export default function NavbarClient({
   ],
 }: {
   siteName?: string;
+  items?: NavItem[];
   headerLinks?: Array<{ href: string; label: string }>;
 }) {
   const count = useCart((s) => s.count);
@@ -32,12 +36,22 @@ export default function NavbarClient({
           <span className="text-xl font-bold bg-gradient-to-r from-brand to-brand/80 bg-clip-text text-transparent">{siteName}</span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-          {headerLinks.map((item) => (
-            <Link key={item.href} href={item.href} className="relative py-2 px-3 text-gray-700 hover:text-brand transition-all duration-300 group">
-              <span className="relative z-10">{item.label}</span>
-              <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand group-hover:w-full transition-all duration-200" />
-            </Link>
+        <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+          {(items && items.length ? items : (headerLinks as any)).map((item: any) => (
+            <div key={item.href} className="relative group">
+              <Link href={item.href} className="py-2 px-3 text-gray-700 hover:text-brand transition-colors">{item.label}</Link>
+              {item.children && item.children.length > 0 && (
+                <div className="absolute left-0 mt-2 min-w-[12rem] bg-white border border-accent/20 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity">
+                  <ul className="py-2">
+                    {item.children.map((c: any) => (
+                      <li key={c.href}>
+                        <Link href={c.href} className="block px-4 py-2 text-gray-700 hover:bg-brand/5 hover:text-brand">{c.label}</Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
           ))}
         </nav>
 
@@ -63,11 +77,22 @@ export default function NavbarClient({
 
       <div className={`md:hidden overflow-hidden transition-all duration-300 ${isMobileMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="p-4 bg-white/95 backdrop-blur-lg border-t border-accent/20">
-          <nav className="space-y-3">
-            {headerLinks.map((item, index) => (
-              <Link key={item.href} href={item.href} className="flex items-center gap-3 p-3 rounded-lg text-gray-700 hover:text-brand hover:bg-brand/5 transition-all duration-200 group" style={{animationDelay: `${index * 100}ms`}} onClick={() => setIsMobileMenuOpen(false)}>
-                {item.label}
-              </Link>
+          <nav className="space-y-1">
+            {(items && items.length ? items : (headerLinks as any)).map((item: any, index: number) => (
+              <div key={item.href} className="">
+                <Link href={item.href} className="flex items-center justify-between gap-3 p-3 rounded-lg text-gray-700 hover:text-brand hover:bg-brand/5 transition-all duration-200" style={{animationDelay: `${index * 100}ms`}} onClick={() => setIsMobileMenuOpen(false)}>
+                  {item.label}
+                </Link>
+                {item.children && item.children.length > 0 && (
+                  <div className="pl-4 pb-2">
+                    {item.children.map((c: any) => (
+                      <Link key={c.href} href={c.href} className="block p-2 rounded-lg text-gray-600 hover:text-brand hover:bg-brand/5" onClick={() => setIsMobileMenuOpen(false)}>
+                        {c.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
           </nav>
         </div>
@@ -75,4 +100,3 @@ export default function NavbarClient({
     </header>
   );
 }
-

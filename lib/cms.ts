@@ -97,6 +97,7 @@ export async function getSiteSettings(preview = false): Promise<SiteSettings | n
 export type Navigation = {
   headerLinks?: Array<{ label: string; url: string }>;
   footerLinks?: Array<{ label: string; url: string }>;
+  headerTree?: Array<NavItem>;
 };
 
 export async function getNavigation(preview = false): Promise<Navigation | null> {
@@ -128,17 +129,79 @@ export async function getAutoNavigation(preview = false): Promise<Navigation> {
       title,
       "slug": slug.current,
       navLabel, order, hideFromNav,
-      parent->{ "slug": slug.current, title }
+      parent->{ _id, "slug": slug.current, title }
     }`;
     const client = preview ? sanityFor(true) : sanity;
     const pages = await client.fetch<PageForNav[]>(query);
-    const topLevel = (pages || [])
+    const list = pages || [];
+    const bySlug = new Map(list.map((p) => [p.slug, p]));
+
+    // Build children map keyed by parent slug
+    const children = new Map<string, PageForNav[]>();
+    for (const p of list) {
+      if (p.parent?.slug && !p.hideFromNav) {
+        const arr = children.get(p.parent.slug) || [];
+        arr.push(p);
+        children.set(p.parent.slug, arr);
+      }
+    }
+
+    function toItem(p: PageForNav): NavItem {
+      const kids = (children.get(p.slug) || []).sort((a,b)=>(a.order??999)-(b.order??999));
+      return {
+        label: p.navLabel || p.title,
+        url: `/${p.slug}`,
+        order: p.order,
+        children: kids.map(toItem),
+      };
+    }
+
+    const topLevel = list
       .filter((p) => !p.parent && !p.hideFromNav && p.slug)
       .sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
-    const links = topLevel.map((p) => ({ label: p.navLabel || p.title, url: `/${p.slug}` }));
-    return { headerLinks: links, footerLinks: links };
+    const tree = topLevel.map(toItem);
+    const flatLinks = topLevel.map((p) => ({ label: p.navLabel || p.title, url: `/${p.slug}` }));
+    return { headerLinks: flatLinks, footerLinks: flatLinks, headerTree: tree };
   } catch {
     return { headerLinks: [], footerLinks: [] };
+  }
+}
+
+export type NavItem = { label: string; url: string; children?: NavItem[]; order?: number };
+
+export async function getBreadcrumbs(slug: string, preview = false): Promise<Array<{label: string; url: string}>> {
+  if (sanityDisabled()) return [];
+  try {
+    const query = groq`*[_type=='page' && slug.current==$slug][0]{
+      title,
+      "slug": slug.current,
+      parent->{
+        title,
+        "slug": slug.current,
+        parent->{
+          title,
+          "slug": slug.current,
+          parent->{
+            title,
+            "slug": slug.current
+          }
+        }
+      }
+    }`;
+    const client = preview ? sanityFor(true) : sanity;
+    const page = await client.fetch<any>(query, { slug });
+    if (!page) return [];
+    const chain: Array<{label: string; url: string}> = [];
+    function pushNode(node: any) {
+      if (!node) return;
+      if (node.parent) pushNode(node.parent);
+      chain.push({ label: node.title, url: `/${node.slug}` });
+    }
+    if (page.parent) pushNode(page.parent);
+    chain.push({ label: page.title, url: `/${page.slug}` });
+    return chain;
+  } catch {
+    return [];
   }
 }
 
