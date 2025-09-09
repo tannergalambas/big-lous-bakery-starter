@@ -17,6 +17,7 @@ const dataset = normalize(
 
 const idOk = /^[a-z0-9-]+$/.test(projectId);
 const dsOk = /^[a-z0-9-]+$/.test(dataset);
+const token = normalize(process.env.SANITY_API_READ_TOKEN);
 
 export const isSanityEnabled = Boolean(projectId && dataset && idOk && dsOk);
 
@@ -32,11 +33,16 @@ function stubClient() {
   } as unknown as ReturnType<typeof createClient>;
 }
 
-export const sanity = isSanityEnabled
-  ? createClient({
-      projectId,
-      dataset,
-      apiVersion: '2024-07-01',
-      useCdn: true,
-    })
-  : stubClient();
+export function sanityFor(preview = false) {
+  if (!isSanityEnabled) return stubClient();
+  return createClient({
+    projectId,
+    dataset,
+    apiVersion: '2024-07-01',
+    useCdn: !preview,
+    token: preview && token ? token : undefined,
+    perspective: preview && token ? 'previewDrafts' : 'published',
+  });
+}
+
+export const sanity = sanityFor(false);

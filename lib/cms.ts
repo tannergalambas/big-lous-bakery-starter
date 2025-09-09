@@ -1,4 +1,4 @@
-import { sanity } from './sanity';
+import { sanity, sanityFor } from './sanity';
 import groq from 'groq';
 
 type Maybe<T> = T | null | undefined;
@@ -17,7 +17,7 @@ export type CmsPage = {
   image?: string | null;
 };
 
-export async function getPage(slug: string): Promise<Maybe<CmsPage>> {
+export async function getPage(slug: string, preview = false): Promise<Maybe<CmsPage>> {
   if (sanityDisabled()) return null;
 
   try {
@@ -27,7 +27,8 @@ export async function getPage(slug: string): Promise<Maybe<CmsPage>> {
       "image": image.asset->url
     }`;
 
-    const data = await sanity.fetch<CmsPage | null>(query, { slug });
+    const client = preview ? sanityFor(true) : sanity;
+    const data = await client.fetch<CmsPage | null>(query, { slug });
     return data ?? null;
   } catch {
     return null;
@@ -36,7 +37,7 @@ export async function getPage(slug: string): Promise<Maybe<CmsPage>> {
 
 export type FaqItem = { question: string; answer: string };
 
-export async function getFaq(): Promise<FaqItem[]> {
+export async function getFaq(preview = false): Promise<FaqItem[]> {
   if (sanityDisabled()) return [];
 
   try {
@@ -44,7 +45,8 @@ export async function getFaq(): Promise<FaqItem[]> {
       question,
       answer
     }`;
-    const data = await sanity.fetch<FaqItem[]>(query);
+    const client = preview ? sanityFor(true) : sanity;
+    const data = await client.fetch<FaqItem[]>(query);
     return Array.isArray(data) ? data : [];
   } catch {
     return [];
@@ -65,7 +67,7 @@ export type SiteSettings = {
   footerText?: string;
 };
 
-export async function getSiteSettings(): Promise<SiteSettings | null> {
+export async function getSiteSettings(preview = false): Promise<SiteSettings | null> {
   if (sanityDisabled()) return null;
   try {
     const query = groq`*[_type == "siteSettings"][0]{
@@ -75,7 +77,8 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
       featuredProductIds,
       footerText
     }`;
-    const data = await sanity.fetch<SiteSettings | null>(query);
+    const client = preview ? sanityFor(true) : sanity;
+    const data = await client.fetch<SiteSettings | null>(query);
     return data ?? null;
   } catch {
     return null;
@@ -87,11 +90,12 @@ export type Navigation = {
   footerLinks?: Array<{ label: string; url: string }>;
 };
 
-export async function getNavigation(): Promise<Navigation | null> {
+export async function getNavigation(preview = false): Promise<Navigation | null> {
   if (sanityDisabled()) return null;
   try {
     const query = groq`*[_type == "navigation"][0]{ headerLinks, footerLinks }`;
-    const data = await sanity.fetch<Navigation | null>(query);
+    const client = preview ? sanityFor(true) : sanity;
+    const data = await client.fetch<Navigation | null>(query);
     return data ?? null;
   } catch {
     return null;
@@ -105,7 +109,7 @@ export type Homepage = {
   ctas?: Array<{ label: string; href: string }>;
 };
 
-export async function getHomepage(): Promise<Homepage | null> {
+export async function getHomepage(preview = false): Promise<Homepage | null> {
   if (sanityDisabled()) return null;
   try {
     const query = groq`*[_type == "homepage"][0]{
@@ -114,7 +118,8 @@ export async function getHomepage(): Promise<Homepage | null> {
       "heroImage": heroImage.asset->url,
       ctas
     }`;
-    const data = await sanity.fetch<Homepage | null>(query);
+    const client = preview ? sanityFor(true) : sanity;
+    const data = await client.fetch<Homepage | null>(query);
     return data ?? null;
   } catch {
     return null;

@@ -5,9 +5,11 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { quicksand } from '@/lib/fonts';
 import { getSiteSettings } from '@/lib/cms';
+import { draftMode } from 'next/headers';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const settings = await getSiteSettings();
+  const preview = draftMode().isEnabled;
+  const settings = await getSiteSettings(preview);
   const title = settings?.seo?.metaTitle || "Big Lou's Bakery | Fresh-Baked Cookies, Custom Cakes & Artisan Treats";
   const description = settings?.seo?.metaDescription || "Discover Big Lou's Bakery - your local destination for fresh-baked cookies, custom celebration cakes, artisan pies, and handcrafted treats.";
   const ogImage = settings?.seo?.ogImage || '/og-image.jpg';

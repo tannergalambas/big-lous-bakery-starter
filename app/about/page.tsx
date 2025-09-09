@@ -1,11 +1,13 @@
 import Image from 'next/image';
 import { getPage } from '@/lib/cms';
+import { draftMode } from 'next/headers';
 import RichText from '@/components/RichText';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AboutPage() {
-  const cms = await getPage('about');
+  const preview = draftMode().isEnabled;
+  const cms = await getPage('about', preview);
 
   const title = cms?.title ?? "About Big Lou's Bakery";
   const content = cms?.content ??

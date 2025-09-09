@@ -8,9 +8,10 @@ type Props = {
   title?: string;
   subtitle?: string;
   image?: string;
+  ctas?: Array<{ label: string; href: string }>;
 };
 
-export default function Hero({ title, subtitle, image }: Props) {
+export default function Hero({ title, subtitle, image, ctas }: Props) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -45,24 +46,28 @@ export default function Hero({ title, subtitle, image }: Props) {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start hero-buttons">
-            <a href="/shop" className="btn btn-brand shadow-lg hover:shadow-2xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 relative overflow-hidden group">
-              <span className="relative z-10 flex items-center gap-2">
-                <svg className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                </svg>
-                Shop now
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-brand/80 to-brand scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-            </a>
-            <a href="/about" className="btn bg-white/80 backdrop-blur-sm border border-brand/20 hover:bg-white hover:border-brand/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
-              <span className="relative z-10 flex items-center gap-2">
-                <svg className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Learn more
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-brand/10 to-brand/20 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-right"></div>
-            </a>
+            {(ctas && ctas.length ? ctas : [
+              { label: 'Shop now', href: '/shop' },
+              { label: 'Learn more', href: '/about' },
+            ]).slice(0, 2).map((btn, i) => (
+              <a
+                key={i}
+                href={btn.href || '#'}
+                className={
+                  i === 0
+                    ? 'btn btn-brand shadow-lg hover:shadow-2xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 relative overflow-hidden group'
+                    : 'btn bg-white/80 backdrop-blur-sm border border-brand/20 hover:bg-white hover:border-brand/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group'
+                }
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  <svg className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={i === 0 ? 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z' : 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'} />
+                  </svg>
+                  {btn.label}
+                </span>
+                <div className={`absolute inset-0 ${i===0 ? 'bg-gradient-to-r from-brand/80 to-brand' : 'bg-gradient-to-r from-brand/10 to-brand/20'} scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ${i===0 ? 'origin-left' : 'origin-right'}`}></div>
+              </a>
+            ))}
           </div>
         </div>
 

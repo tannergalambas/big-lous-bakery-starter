@@ -5,6 +5,7 @@ import InstagramFeed from '@/components/InstagramFeed';
 import NewsletterSignup from '@/components/NewsletterSignup';
 import { headers } from 'next/headers';
 import { getHomepage, getPage, getSiteSettings } from '@/lib/cms';
+import { draftMode } from 'next/headers';
 
 type Product = {
   id: string;
@@ -40,11 +41,12 @@ async function fetchProducts(): Promise<{ items: Product[] }> {
 export const dynamic = 'force-dynamic';
 
 export default async function Page() {
+  const preview = draftMode().isEnabled;
   const { items = [] } = await fetchProducts();
   // Optional: fetch editable home content from Sanity (slug: "home")
-  const homeDoc = await getHomepage();
-  const home = homeDoc || (await getPage('home'));
-  const settings = await getSiteSettings();
+  const homeDoc = await getHomepage(preview);
+  const home = homeDoc || (await getPage('home', preview));
+  const settings = await getSiteSettings(preview);
   const featured = settings?.featuredProductIds || [];
   const ordered = featured.length
     ? [
@@ -57,7 +59,8 @@ export default async function Page() {
     <div>
       <Hero title={(home as any)?.heroTitle || (home as any)?.title}
             subtitle={(home as any)?.heroSubtitle || (home as any)?.content || undefined}
-            image={(home as any)?.heroImage || (home as any)?.image || undefined} />
+            image={(home as any)?.heroImage || (home as any)?.image || undefined}
+            ctas={(home as any)?.ctas} />
 
       <section className="container py-16">
         <div className="text-center mb-12">

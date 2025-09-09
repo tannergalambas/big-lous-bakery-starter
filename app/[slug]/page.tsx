@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getPage } from '@/lib/cms';
+import { draftMode } from 'next/headers';
 import RichText from '@/components/RichText';
 
 export const dynamic = 'force-dynamic';
@@ -8,8 +9,9 @@ export const dynamic = 'force-dynamic';
 type Params = { params: { slug: string } };
 
 export default async function CmsPage({ params }: Params) {
+  const preview = draftMode().isEnabled;
   const slug = decodeURIComponent(params.slug);
-  const page = await getPage(slug);
+  const page = await getPage(slug, preview);
 
   if (!page) return notFound();
 
