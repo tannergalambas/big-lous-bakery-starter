@@ -13,8 +13,9 @@ export async function GET() {
       vercelEnv: process.env.VERCEL_ENV || null,
     },
     sanity: {
-      projectIdPresent: present(process.env.SANITY_PROJECT_ID),
-      datasetPresent: present(process.env.SANITY_DATASET),
+      projectIdPresent: present(process.env.SANITY_PROJECT_ID) || present(process.env.NEXT_PUBLIC_SANITY_PROJECT_ID),
+      datasetPresent: present(process.env.SANITY_DATASET) || present(process.env.NEXT_PUBLIC_SANITY_DATASET),
+      usingNextPublicFallback: !present(process.env.SANITY_PROJECT_ID) && present(process.env.NEXT_PUBLIC_SANITY_PROJECT_ID),
     },
     square: {
       accessTokenPresent: present(process.env.SQUARE_ACCESS_TOKEN),
@@ -28,4 +29,3 @@ export async function GET() {
 
   return NextResponse.json(payload);
 }
-
