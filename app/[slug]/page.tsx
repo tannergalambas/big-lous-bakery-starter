@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getPage } from '@/lib/cms';
+import RichText from '@/components/RichText';
 
 export const dynamic = 'force-dynamic';
 
@@ -22,9 +23,11 @@ export default async function CmsPage({ params }: Params) {
             </h1>
             {page.content && (
               <div className="card p-6">
-                <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-                  {page.content}
-                </p>
+                {Array.isArray(page.content) ? (
+                  <RichText value={page.content} />
+                ) : (
+                  <p className="text-gray-700 leading-relaxed whitespace-pre-line">{page.content as any}</p>
+                )}
               </div>
             )}
           </div>
@@ -47,4 +50,3 @@ export default async function CmsPage({ params }: Params) {
     </div>
   );
 }
-

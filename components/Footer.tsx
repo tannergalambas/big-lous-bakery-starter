@@ -1,4 +1,11 @@
-export default function Footer() {
+import { getSiteSettings, getNavigation } from '@/lib/cms';
+
+export default async function Footer() {
+  const [settings, nav] = await Promise.all([
+    getSiteSettings(),
+    getNavigation(),
+  ]);
+  const footerLinks = nav?.footerLinks || [];
   return (
     <footer className="w-full bg-gradient-to-br from-green-800 to-green-900 text-white relative overflow-hidden">
       {/* Decorative background pattern */}
@@ -16,7 +23,7 @@ export default function Footer() {
               <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-white font-bold text-xl">
                 BL
               </div>
-              <h3 className="text-xl font-bold">Big Lou&apos;s Bakery</h3>
+              <h3 className="text-xl font-bold">{settings?.siteName || "Big Lou's Bakery"}</h3>
             </div>
             <p className="text-white/80 leading-relaxed">
               Fresh-baked cookies, custom cakes, and delicious pies made with love and the finest ingredients.
@@ -27,10 +34,14 @@ export default function Footer() {
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Quick Links</h4>
             <nav className="space-y-2">
-              <a href="/shop" className="block text-white/80 hover:text-white transition-colors duration-200">Shop All Products</a>
-              <a href="/about" className="block text-white/80 hover:text-white transition-colors duration-200">About Us</a>
-              <a href="/faq" className="block text-white/80 hover:text-white transition-colors duration-200">FAQ</a>
-              <a href="/" className="block text-white/80 hover:text-white transition-colors duration-200">Home</a>
+              {(footerLinks.length ? footerLinks : [
+                {label: 'Shop All Products', url: '/shop'},
+                {label: 'About Us', url: '/about'},
+                {label: 'FAQ', url: '/faq'},
+                {label: 'Home', url: '/'},
+              ]).map((l) => (
+                <a key={l.url} href={l.url} className="block text-white/80 hover:text-white transition-colors duration-200">{l.label}</a>
+              ))}
             </nav>
           </div>
 
@@ -43,13 +54,13 @@ export default function Footer() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <span>Austin, Texas</span>
+                <span>{settings?.address || 'Austin, Texas'}</span>
               </div>
               <div className="flex items-center gap-3">
                 <svg className="w-5 h-5 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                <span>hello@biglous.example</span>
+                <span>{settings?.email || 'hello@biglous.example'}</span>
               </div>
             </div>
           </div>
@@ -62,7 +73,7 @@ export default function Footer() {
               <h4 className="font-semibold text-lg mb-4">Follow Us</h4>
               <div className="flex items-center gap-4">
                 <a
-                  href="https://www.instagram.com/biglousbakery"
+                  href={settings?.social?.instagram || 'https://www.instagram.com/biglousbakery'}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-200 group"
@@ -74,7 +85,7 @@ export default function Footer() {
                 </a>
                 
                 <a
-                  href="https://www.tiktok.com/@biglousbakery"
+                  href={settings?.social?.tiktok || 'https://www.tiktok.com/@biglousbakery'}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-200 group"
@@ -96,7 +107,7 @@ export default function Footer() {
 
         {/* Bottom Section */}
         <div className="border-t border-white/20 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-white/70">© 2024 Big Lou&apos;s Bakery. All rights reserved.</p>
+          <p className="text-white/70">© {new Date().getFullYear()} {settings?.siteName || "Big Lou's Bakery"}. All rights reserved.</p>
           <div className="flex items-center gap-6 text-sm text-white/70">
             <span>Cookies • Cakes • Pies</span>
             <span>•</span>

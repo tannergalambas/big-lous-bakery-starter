@@ -3,69 +3,34 @@ import './globals.css';
 import type { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { quicksand, pacifico, raleway } from '@/lib/fonts';
+import { quicksand } from '@/lib/fonts';
+import { getSiteSettings } from '@/lib/cms';
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://biglous-bakery.example.com'),
-  title: {
-    default: "Big Lou's Bakery | Fresh-Baked Cookies, Custom Cakes & Artisan Treats",
-    template: "%s | Big Lou's Bakery"
-  },
-  description: 'Discover Big Lou\'s Bakery - your local destination for fresh-baked cookies, custom celebration cakes, artisan pies, and handcrafted treats. Baked daily with premium ingredients using traditional methods.',
-  keywords: ['bakery', 'fresh cookies', 'custom cakes', 'artisan bread', 'local bakery', 'handcrafted treats', 'birthday cakes', 'wedding cakes', 'pastries'],
-  authors: [{ name: "Big Lou's Bakery" }],
-  creator: "Big Lou's Bakery",
-  publisher: "Big Lou's Bakery",
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  const title = settings?.seo?.metaTitle || "Big Lou's Bakery | Fresh-Baked Cookies, Custom Cakes & Artisan Treats";
+  const description = settings?.seo?.metaDescription || "Discover Big Lou's Bakery - your local destination for fresh-baked cookies, custom celebration cakes, artisan pies, and handcrafted treats.";
+  const ogImage = settings?.seo?.ogImage || '/og-image.jpg';
+  const siteName = settings?.siteName || "Big Lou's Bakery";
+
+  return {
+    title: { default: title, template: `%s | ${siteName}` },
+    description,
+    openGraph: {
+      type: 'website',
+      siteName,
+      title,
+      description,
+      images: [{ url: ogImage }],
     },
-  },
-  openGraph: {
-    type: 'website',
-    siteName: "Big Lou's Bakery",
-    title: "Big Lou's Bakery | Fresh-Baked Cookies, Custom Cakes & Artisan Treats",
-    description: 'Discover Big Lou\'s Bakery - your local destination for fresh-baked cookies, custom celebration cakes, artisan pies, and handcrafted treats. Baked daily with premium ingredients.',
-    url: 'https://biglous-bakery.example.com',
-    images: [
-      {
-        url: '/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: "Big Lou's Bakery - Fresh baked goods display",
-      },
-    ],
-    locale: 'en_US',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: "Big Lou's Bakery | Fresh-Baked Cookies, Custom Cakes & Artisan Treats",
-    description: 'Discover Big Lou\'s Bakery - your local destination for fresh-baked cookies, custom celebration cakes, and handcrafted treats.',
-    images: ['/og-image.jpg'],
-    creator: '@biglousbakery',
-  },
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
-  },
-  manifest: '/site.webmanifest',
-  verification: {
-    google: 'google-site-verification-code',
-    yandex: 'yandex-verification-code',
-    yahoo: 'yahoo-site-verification-code',
-  },
-  category: 'Food & Beverage',
-  alternates: {
-    canonical: 'https://biglous-bakery.example.com',
-  },
-};
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [ogImage],
+    },
+  };
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

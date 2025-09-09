@@ -25,20 +25,28 @@ export default defineConfig({
         S.list()
           .title('Content')
           .items([
+            // Singletons
+            S.listItem().title('Homepage').child(
+              S.editor().schemaType('homepage').documentId('homepage')
+            ),
+            S.listItem().title('Navigation').child(
+              S.editor().schemaType('navigation').documentId('navigation')
+            ),
+            S.listItem().title('Site Settings').child(
+              S.editor().schemaType('siteSettings').documentId('siteSettings')
+            ),
+            S.divider(),
+            // Collections
             S.listItem()
               .title('Pages')
-              .child(
-                S.documentTypeList('page')
-                  .title('Pages')
-              ),
-            S.divider(),
+              .child(S.documentTypeList('page').title('Pages')),
             S.listItem()
               .title('FAQ Items')
               .child(
                 S.documentTypeList('faqItem')
                   .title('FAQ Items')
                   .defaultOrdering([{ field: 'order', direction: 'asc' }])
-              )
+              ),
           ])
     }),
     visionTool()

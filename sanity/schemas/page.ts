@@ -22,8 +22,11 @@ export default {
     {
       name: 'content',
       title: 'Content',
-      type: 'text',
-      rows: 8
+      type: 'array',
+      of: [
+        { type: 'block' },
+        { type: 'image', options: { hotspot: true } },
+      ],
     },
     {
       name: 'image',
