@@ -4,7 +4,7 @@ import ProductCard from '@/components/ProductCard';
 import InstagramFeed from '@/components/InstagramFeed';
 import NewsletterSignup from '@/components/NewsletterSignup';
 import { headers } from 'next/headers';
-import { getHomepage, getPage } from '@/lib/cms';
+import { getHomepage, getPage, getSiteSettings } from '@/lib/cms';
 
 type Product = {
   id: string;
@@ -44,6 +44,14 @@ export default async function Page() {
   // Optional: fetch editable home content from Sanity (slug: "home")
   const homeDoc = await getHomepage();
   const home = homeDoc || (await getPage('home'));
+  const settings = await getSiteSettings();
+  const featured = settings?.featuredProductIds || [];
+  const ordered = featured.length
+    ? [
+        ...items.filter((i) => featured.includes(i.id)),
+        ...items.filter((i) => !featured.includes(i.id)),
+      ]
+    : items;
 
   return (
     <div>
@@ -59,7 +67,7 @@ export default async function Page() {
           </p>
         </div>
 
-        {items.length === 0 ? (
+        {ordered.length === 0 ? (
           <div className="text-center py-16 animate-fade-in">
             <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-accent/20 to-brand/10 rounded-full flex items-center justify-center group hover:scale-110 transition-all duration-300 animate-glow">
               <svg className="w-12 h-12 text-brand/60 group-hover:text-brand transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -85,7 +93,7 @@ export default async function Page() {
         ) : (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
-              {items.slice(0, 8).map((p, index) => (
+              {ordered.slice(0, 8).map((p, index) => (
                 <div 
                   key={p.id} 
                   className="animate-fade-in opacity-0" 
@@ -99,7 +107,7 @@ export default async function Page() {
               ))}
             </div>
             
-            {items.length > 8 && (
+            {ordered.length > 8 && (
               <div className="text-center mt-12 animate-fade-in" style={{animationDelay: '1s'}}>
                 <a href="/shop" className="btn btn-brand btn-enhanced hover:shadow-2xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 relative group">
                   <span className="flex items-center gap-2 relative z-10">

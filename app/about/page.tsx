@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { getPage } from '@/lib/cms';
+import RichText from '@/components/RichText';
 
 export const dynamic = 'force-dynamic';
 
@@ -7,8 +8,7 @@ export default async function AboutPage() {
   const cms = await getPage('about');
 
   const title = cms?.title ?? "About Big Lou's Bakery";
-  const content =
-    cms?.content ??
+  const content = cms?.content ??
     "We're a family-run bakery passionate about scratch-made cookies, custom cakes, and seasonal pies. Everything is baked fresh with simple ingredients and a whole lot of heart.";
   const image =
     cms?.image ??
@@ -39,7 +39,11 @@ export default async function AboutPage() {
 
           <div className="space-y-6">
             <div className="card p-8">
-              <p className="text-gray-700 leading-relaxed text-lg whitespace-pre-line">{content}</p>
+              {Array.isArray(content) ? (
+                <RichText value={content} />
+              ) : (
+                <p className="text-gray-700 leading-relaxed text-lg whitespace-pre-line">{content as any}</p>
+              )}
             </div>
             
             <div className="card p-6">

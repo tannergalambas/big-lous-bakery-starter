@@ -17,6 +17,7 @@
     "groq": "3.49.0",
     "next": "14.2.5",
     "next-sanity": "^9.12.3",
+    "@portabletext/react": "^3.0.11",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "sanity": "^4.6.1",
