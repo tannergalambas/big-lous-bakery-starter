@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "sanity:deploy": "sanity deploy",
-    "sanity:start": "sanity start"
+    "sanity:deploy": "sanity --cwd sanity deploy",
+    "sanity:start": "sanity --cwd sanity start"
   },
   "dependencies": {
     "@sanity/client": "6.18.2",
@@ -20,7 +20,7 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "sanity": "^4.6.1",
-    "styled-components": "^6.1.11",
+    "styled-components": "^6.1.15",
     "zustand": "4.5.2"
   },
   "devDependencies": {
