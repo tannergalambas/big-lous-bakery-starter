@@ -4,7 +4,11 @@ import groq from 'groq';
 type Maybe<T> = T | null | undefined;
 
 function sanityDisabled() {
-  return !process.env.SANITY_PROJECT_ID || !process.env.SANITY_DATASET;
+  const projectId =
+    process.env.SANITY_PROJECT_ID || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+  const dataset =
+    process.env.SANITY_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET;
+  return !projectId || !dataset;
 }
 
 export type CmsPage = {
@@ -46,4 +50,3 @@ export async function getFaq(): Promise<FaqItem[]> {
     return [];
   }
 }
-
