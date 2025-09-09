@@ -50,7 +50,6 @@ export default defineConfig({
               .child(
                 S.documentTypeList('page')
                   .title('Pages')
-                  .defaultLayout({ width: 'medium' })
               ),
             S.listItem()
               .title('FAQ Items')
