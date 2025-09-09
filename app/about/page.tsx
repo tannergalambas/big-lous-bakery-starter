@@ -1,14 +1,16 @@
 import Image from 'next/image';
-import { getPage, getSiteSettings } from '@/lib/cms';
+import { getPage, getSiteSettings, getBreadcrumbs } from '@/lib/cms';
 import type { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 import RichText from '@/components/RichText';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AboutPage() {
   const preview = draftMode().isEnabled;
   const cms = await getPage('about', preview);
+  const crumbs = await getBreadcrumbs('about', preview);
 
   const title = cms?.title ?? "About Big Lou's Bakery";
   const content = cms?.content ??
@@ -20,6 +22,7 @@ export default async function AboutPage() {
   return (
     <div className="pt-8">
       <section className="container py-16">
+        <Breadcrumbs items={crumbs} />
         <div className="text-center mb-12">
           <h1 className="text-4xl lg:text-5xl font-bold gradient-text mb-6" style={{lineHeight: '1.15', paddingBottom: '0.25rem'}}>{title}</h1>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg">

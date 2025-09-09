@@ -1,10 +1,11 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { getPage, getSiteSettings, getBreadcrumbs } from '@/lib/cms';
+import { getPage, getSiteSettings, getBreadcrumbs, getChildrenOf } from '@/lib/cms';
 import type { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 import RichText from '@/components/RichText';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,6 +15,13 @@ export default async function CmsPage({ params }: Params) {
   const preview = draftMode().isEnabled;
   const slug = decodeURIComponent(params.slug);
   const page = await getPage(slug, preview);
+  // Auto-redirect to first child if this page has no content but has children
+  if (page && (!page.content || (Array.isArray(page.content) && page.content.length === 0))) {
+    const kids = await getChildrenOf(slug, preview);
+    if (kids.length > 0) {
+      return redirect(kids[0].url);
+    }
+  }
   const crumbs = await getBreadcrumbs(slug, preview);
 
   if (!page) return notFound();

@@ -205,6 +205,22 @@ export async function getBreadcrumbs(slug: string, preview = false): Promise<Arr
   }
 }
 
+export async function getChildrenOf(slug: string, preview = false): Promise<Array<{label: string; url: string}>> {
+  if (sanityDisabled()) return [];
+  try {
+    const query = groq`*[_type=='page' && parent->slug.current==$slug]{
+      title,
+      "slug": slug.current,
+      order
+    } | order(order asc)`;
+    const client = preview ? sanityFor(true) : sanity;
+    const res = await client.fetch<Array<{title: string; slug: string}>>(query, { slug });
+    return (res || []).filter((p)=>p.slug).map((p)=>({ label: p.title, url: `/${p.slug}` }));
+  } catch {
+    return [];
+  }
+}
+
 export type Homepage = {
   heroTitle?: string;
   heroSubtitle?: string;
