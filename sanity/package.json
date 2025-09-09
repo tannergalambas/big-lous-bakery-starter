@@ -1,0 +1,8 @@
+{
+  "name": "big-lous-bakery-studio",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Sanity Studio for Big Lou's Bakery",
+  "type": "module"
+}
+
