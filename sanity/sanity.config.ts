@@ -4,6 +4,7 @@ import { visionTool } from '@sanity/vision'
 
 import { schemaTypes } from './schemas'
 import PreviewPane from './preview/PreviewPane'
+import OwnerHelp from './help/OwnerHelp'
 
 export default defineConfig({
   name: 'big-lous-bakery',
@@ -26,6 +27,9 @@ export default defineConfig({
         S.list()
           .title('Content')
           .items([
+            S.listItem().title('Owner Guide').child(
+              S.component(OwnerHelp).title('Owner Guide')
+            ),
             // Singletons
             S.listItem().title('Homepage').child(
               S.editor().schemaType('homepage').documentId('homepage').views([

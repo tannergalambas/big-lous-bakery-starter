@@ -20,6 +20,31 @@ export default {
       validation: (Rule: any) => Rule.required()
     },
     {
+      name: 'parent',
+      title: 'Parent Page (optional)',
+      type: 'reference',
+      to: [{ type: 'page' }],
+      description: 'Select a parent page to build a hierarchy and breadcrumbs.'
+    },
+    {
+      name: 'order',
+      title: 'Order',
+      type: 'number',
+      description: 'Controls ordering when shown in navigation.'
+    },
+    {
+      name: 'navLabel',
+      title: 'Navigation Label',
+      type: 'string',
+      description: 'Optional label to use in menus instead of the title.'
+    },
+    {
+      name: 'hideFromNav',
+      title: 'Hide From Navigation',
+      type: 'boolean',
+      initialValue: false
+    },
+    {
       name: 'content',
       title: 'Content',
       type: 'array',
@@ -40,7 +65,8 @@ export default {
   preview: {
     select: {
       title: 'title',
-      media: 'image'
+      media: 'image',
+      parent: 'parent.title'
     }
   }
 }
