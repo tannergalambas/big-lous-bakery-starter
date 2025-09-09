@@ -7,8 +7,13 @@ function normalize(v?: string | null) {
   return t;
 }
 
-const projectId = normalize(process.env.SANITY_PROJECT_ID);
-const dataset = normalize(process.env.SANITY_DATASET);
+// Prefer private SANITY_*; fall back to NEXT_PUBLIC_* if needed (helps Vercel misconfig)
+const projectId = normalize(
+  process.env.SANITY_PROJECT_ID || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
+);
+const dataset = normalize(
+  process.env.SANITY_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET
+);
 
 const idOk = /^[a-z0-9-]+$/.test(projectId);
 const dsOk = /^[a-z0-9-]+$/.test(dataset);

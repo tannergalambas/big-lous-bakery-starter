@@ -15,6 +15,12 @@ const nextConfig = {
         hostname: 'images.unsplash.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        // Sanity asset CDN for images stored in the CMS
+        hostname: 'cdn.sanity.io',
+        pathname: '/**',
+      },
     ],
   },
   // Configure for Replit environment - allow all hosts for proxy

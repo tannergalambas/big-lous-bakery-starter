@@ -1,13 +1,11 @@
-import { defineConfig } from 'sanity'
-import { deskTool } from 'sanity/desk'
-import { visionTool } from '@sanity/vision'
-
-import { schemaTypes } from './schemas'
+import {defineConfig} from 'sanity'
+import {deskTool} from 'sanity/desk'
+import {visionTool} from '@sanity/vision'
+import {schemaTypes} from './schemas'
 
 export default defineConfig({
   name: 'big-lous-bakery',
   title: "Big Lou's Bakery CMS",
-
   projectId:
     process.env.SANITY_STUDIO_PROJECT_ID ||
     process.env.SANITY_PROJECT_ID ||
@@ -18,7 +16,6 @@ export default defineConfig({
     process.env.SANITY_DATASET ||
     process.env.NEXT_PUBLIC_SANITY_DATASET ||
     'production',
-
   plugins: [
     deskTool({
       structure: (S) =>
@@ -27,24 +24,21 @@ export default defineConfig({
           .items([
             S.listItem()
               .title('Pages')
-              .child(
-                S.documentTypeList('page')
-                  .title('Pages')
-              ),
+              .child(S.documentTypeList('page').title('Pages')),
             S.divider(),
             S.listItem()
               .title('FAQ Items')
               .child(
                 S.documentTypeList('faqItem')
                   .title('FAQ Items')
-                  .defaultOrdering([{ field: 'order', direction: 'asc' }])
-              )
-          ])
+                  .defaultOrdering([{field: 'order', direction: 'asc'}])
+              ),
+          ]),
     }),
-    visionTool()
+    visionTool(),
   ],
-
   schema: {
     types: schemaTypes,
   },
 })
+
