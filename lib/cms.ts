@@ -23,7 +23,14 @@ export async function getPage(slug: string, preview = false): Promise<Maybe<CmsP
   try {
     const query = groq`*[_type == "page" && slug.current == $slug][0]{
       title,
-      content,
+      content[]{
+        ...,
+        _type == 'image' => {
+          ...,
+          'url': asset->url,
+          'alt': coalesce(alt, '')
+        }
+      },
       "image": image.asset->url
     }`;
 

@@ -2,6 +2,7 @@ import {defineConfig} from 'sanity'
 import {deskTool} from 'sanity/desk'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemas'
+import PreviewPane from './preview/PreviewPane'
 
 export default defineConfig({
   name: 'big-lous-bakery',
@@ -23,7 +24,10 @@ export default defineConfig({
           .title('Content')
           .items([
             S.listItem().title('Homepage').child(
-              S.editor().schemaType('homepage').documentId('homepage')
+              S.editor().schemaType('homepage').documentId('homepage').views([
+                S.view.form(),
+                S.view.component(PreviewPane).title('Preview')
+              ])
             ),
             S.listItem().title('Navigation').child(
               S.editor().schemaType('navigation').documentId('navigation')
