@@ -60,6 +60,16 @@ export default {
       options: {
         hotspot: true
       }
+    },
+    {
+      name: 'seo',
+      title: 'SEO',
+      type: 'object',
+      fields: [
+        { name: 'metaTitle', title: 'Meta Title', type: 'string' },
+        { name: 'metaDescription', title: 'Meta Description', type: 'text' },
+        { name: 'ogImage', title: 'OG Image', type: 'image', options: { hotspot: true } },
+      ]
     }
   ],
   preview: {

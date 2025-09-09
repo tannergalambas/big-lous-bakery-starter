@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { getPage } from '@/lib/cms';
+import { getPage, getSiteSettings } from '@/lib/cms';
+import type { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 import RichText from '@/components/RichText';
 
@@ -51,4 +52,22 @@ export default async function CmsPage({ params }: Params) {
       </section>
     </div>
   );
+}
+
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const preview = draftMode().isEnabled;
+  const slug = decodeURIComponent(params.slug);
+  const [page, settings] = await Promise.all([
+    getPage(slug, preview),
+    getSiteSettings(preview),
+  ]);
+  const title = page?.seo?.metaTitle || page?.title || settings?.seo?.metaTitle;
+  const description = page?.seo?.metaDescription || settings?.seo?.metaDescription;
+  const ogImage = page?.seo?.ogImage || settings?.seo?.ogImage || '/og-image.jpg';
+  return {
+    title: title || undefined,
+    description: description || undefined,
+    openGraph: { title: title || undefined, description: description || undefined, images: [{ url: ogImage }] },
+    twitter: { card: 'summary_large_image', title: title || undefined, description: description || undefined, images: [ogImage] },
+  };
 }

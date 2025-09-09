@@ -1,11 +1,12 @@
-import { getSiteSettings, getNavigation } from '@/lib/cms';
+import { getSiteSettings, getNavigation, getAutoNavigation } from '@/lib/cms';
 
 export default async function Footer() {
-  const [settings, nav] = await Promise.all([
+  const [settings, nav, autoNav] = await Promise.all([
     getSiteSettings(),
     getNavigation(),
+    getAutoNavigation(),
   ]);
-  const footerLinks = nav?.footerLinks || [];
+  const footerLinks = (nav?.footerLinks && nav.footerLinks.length ? nav.footerLinks : autoNav.footerLinks) || [];
   return (
     <footer className="w-full bg-gradient-to-br from-green-800 to-green-900 text-white relative overflow-hidden">
       {/* Decorative background pattern */}

@@ -13,8 +13,9 @@ function sanityDisabled() {
 
 export type CmsPage = {
   title: string;
-  content?: string;
+  content?: any;
   image?: string | null;
+  seo?: { metaTitle?: string; metaDescription?: string; ogImage?: string | null };
 };
 
 export async function getPage(slug: string, preview = false): Promise<Maybe<CmsPage>> {
@@ -31,7 +32,8 @@ export async function getPage(slug: string, preview = false): Promise<Maybe<CmsP
           'alt': coalesce(alt, '')
         }
       },
-      "image": image.asset->url
+      "image": image.asset->url,
+      seo{ metaTitle, metaDescription, "ogImage": ogImage.asset->url },
     }`;
 
     const client = preview ? sanityFor(true) : sanity;
@@ -106,6 +108,37 @@ export async function getNavigation(preview = false): Promise<Navigation | null>
     return data ?? null;
   } catch {
     return null;
+  }
+}
+
+// Auto-nav fallback from Pages
+export type PageForNav = {
+  title: string;
+  slug: string;
+  navLabel?: string;
+  order?: number;
+  hideFromNav?: boolean;
+  parent?: { slug: string; title: string } | null;
+};
+
+export async function getAutoNavigation(preview = false): Promise<Navigation> {
+  if (sanityDisabled()) return { headerLinks: [], footerLinks: [] };
+  try {
+    const query = groq`*[_type=='page']{ 
+      title,
+      "slug": slug.current,
+      navLabel, order, hideFromNav,
+      parent->{ "slug": slug.current, title }
+    }`;
+    const client = preview ? sanityFor(true) : sanity;
+    const pages = await client.fetch<PageForNav[]>(query);
+    const topLevel = (pages || [])
+      .filter((p) => !p.parent && !p.hideFromNav && p.slug)
+      .sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
+    const links = topLevel.map((p) => ({ label: p.navLabel || p.title, url: `/${p.slug}` }));
+    return { headerLinks: links, footerLinks: links };
+  } catch {
+    return { headerLinks: [], footerLinks: [] };
   }
 }
 
