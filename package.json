@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "sanity:deploy": "sanity --cwd sanity deploy",
-    "sanity:start": "sanity --cwd sanity start"
+    "sanity:start": "sanity --cwd sanity dev"
   },
   "dependencies": {
     "@sanity/client": "6.18.2",
