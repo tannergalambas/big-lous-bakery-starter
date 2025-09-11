@@ -91,7 +91,8 @@ export default function Hero({ title, subtitle, image, ctas }: Props) {
               fill
               className="object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out"
               priority
-              sizes="(min-width:1024px) 40vw, (min-width:768px) 50vw, 90vw"
+              sizes="(max-width:768px) 100vw, (max-width:1024px) 50vw, 40vw"
+              quality={85}
               style={{ objectFit: 'cover' }}
             />
             
