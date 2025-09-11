@@ -10,6 +10,12 @@ const nextConfig = {
         hostname: 'items-images-sandbox.s3.us-west-2.amazonaws.com',
         pathname: '/**',
       },
+      // Square production item images (same pattern as sandbox, prod bucket)
+      {
+        protocol: 'https',
+        hostname: 'items-images-production.s3.us-west-2.amazonaws.com',
+        pathname: '/**',
+      },
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',

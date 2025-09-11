@@ -69,7 +69,7 @@ Set these env vars when using Sanity (public datasets recommended for read-only)
 ### Square Health Check
 - Endpoint: `GET /api/squarehealth` validates env vars and attempts a minimal API call
   - Shows if access token is present, selected environment (sandbox/production), and whether a fetch succeeds.
-  - Also returns number of locations and a sample catalog item id if available.
+ - Also returns number of locations and a sample catalog item id if available.
 
 ## Colors (pulled from logo)
 - brand: #12332e
@@ -78,3 +78,20 @@ Set these env vars when using Sanity (public datasets recommended for read-only)
 - ink:    #1f2937
 
 Adjust or add shades in `tailwind.config.js`.
+
+## Deployment / Env Setup
+- Production env vars (host settings, e.g., Vercel → Project Settings → Environment Variables):
+  - `SQUARE_ACCESS_TOKEN` (Production)
+  - `SQUARE_LOCATION_ID` (Production)
+  - `SQUARE_ENVIRONMENT=production`
+  - `NEXT_PUBLIC_BASE_URL=https://your-domain.com`
+  - (Optional Sanity) `SANITY_PROJECT_ID`, `SANITY_DATASET`, and a read token only if using preview
+- Preview/Dev env vars:
+  - Use Sandbox values for Square (`SQUARE_ENVIRONMENT=sandbox`)
+  - `NEXT_PUBLIC_BASE_URL` can be your local URL or deployed preview URL
+- Studio preview:
+  - Choose a `SANITY_PREVIEW_SECRET` (random string). Do not embed real secrets into a public Studio build; you can paste it in the Preview Pane (it persists to localStorage).
+- Image domains:
+  - Production Square images are allowed via `next.config.js` (both sandbox and production buckets configured).
+- Safety:
+  - `.env.local` is git‑ignored. Avoid committing a plain `.env` file; this repo now also ignores `.env`.
