@@ -13,6 +13,21 @@ and leaves room for **Sanity**-powered content pages.
 2) `npm install`
 3) `npm run dev`
 
+## Setup Checklist (What to do)
+- Install Node 18.17+ (Node 20 LTS recommended) and npm.
+- Copy envs: `cp .env.example .env.local`.
+- For demo/local without credentials: leave placeholders — the app uses safe mock data for products and Instagram.
+- When ready to go live, set at least:
+  - `SQUARE_ACCESS_TOKEN`, `SQUARE_LOCATION_ID`, `SQUARE_ENVIRONMENT`
+  - `NEXT_PUBLIC_BASE_URL` (your site URL)
+  - Optional Sanity: `SANITY_PROJECT_ID`, `SANITY_DATASET` (and `SANITY_API_READ_TOKEN` only for preview)
+- Run: `npm install && npm run dev` then open `http://localhost:3000`.
+- Health checks (no secrets in responses): `/api/envdebug`, `/api/squarehealth`, `/api/sanityhealth`.
+
+### Navigation (when Sanity is not configured)
+- If Sanity env vars are missing, the navbar shows a default set of links: Shop, About, FAQ.
+- If you configure Sanity later, navigation switches to your CMS‑defined links/pages automatically.
+
 ## Square setup
 - Add products in **Square Dashboard → Items**. Variations/prices appear automatically.
 - Shipping & Local Pickup are configured in Square. The checkout page will handle addresses.
@@ -95,3 +110,7 @@ Adjust or add shades in `tailwind.config.js`.
   - Production Square images are allowed via `next.config.js` (both sandbox and production buckets configured).
 - Safety:
   - `.env.local` is git‑ignored. Avoid committing a plain `.env` file; this repo now also ignores `.env`.
+
+## License and Assets
+- Code: MIT license (see `LICENSE`).
+- Images/brand assets: Provided for demo only and remain the property of their respective owners; not licensed for reuse or redistribution.

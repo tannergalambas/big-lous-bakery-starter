@@ -29,7 +29,8 @@ export default function Hero({ title, subtitle, image, ctas }: Props) {
       </div>
 
       <div className={`card p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-gradient-to-br from-white/95 via-green-50/30 to-emerald-50/40 backdrop-blur-sm border border-white/30 shadow-xl relative group transition-all duration-1000 ${isLoaded ? 'hero-loaded' : 'hero-loading'}`}>
-        <div className="flex-1 text-center md:text-left space-y-6">
+        {/* Ensure text appears first on mobile */}
+        <div className="order-1 flex-1 text-center md:text-left space-y-6">
           <div>
             <h1 className={`${pacifico.className} text-4xl md:text-5xl lg:text-6xl text-brand mb-4 drop-shadow-sm hero-title`} style={{lineHeight: '1.2', paddingBottom: '0.5rem'}}>
               {title || "Big Lou's Bakery"}
@@ -71,7 +72,8 @@ export default function Hero({ title, subtitle, image, ctas }: Props) {
           </div>
         </div>
 
-        <div className="flex-1 relative w-full h-64 md:h-80 lg:h-96 hero-image">
+        {/* On mobile, make image a fixed-height block that stacks below copy */}
+        <div className="order-2 w-full relative h-64 md:h-80 lg:h-96 flex-none md:flex-1 hero-image mt-2">
           {/* Multiple layered effects */}
           <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl group-hover:shadow-3xl transition-all duration-500">
             {/* Animated gradient overlay */}
