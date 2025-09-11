@@ -17,7 +17,7 @@ export default async function AboutPage() {
     "We're a family-run bakery passionate about scratch-made cookies, custom cakes, and seasonal pies. Everything is baked fresh with simple ingredients and a whole lot of heart.";
   const image =
     cms?.image ??
-    '/A50EBEF1-3C66-4DF6-A00B-F4031DF26BBC_4_5005_c.jpeg';
+    '/optimized/1200/A50EBEF1-3C66-4DF6-A00B-F4031DF26BBC_4_5005_c.webp';
 
   return (
     <div className="pt-8">

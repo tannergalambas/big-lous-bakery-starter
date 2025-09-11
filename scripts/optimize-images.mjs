@@ -40,7 +40,7 @@ async function main() {
   const [srcDir = 'public', outDir = 'public/optimized'] = process.argv.slice(2);
   const { default: sharp } = await import('sharp');
 
-  const sizes = [400, 800, 1200];
+  const sizes = [400, 800, 1200, 1600, 2000];
   const tasks = [];
 
   for await (const f of walk(srcDir, srcDir)) {
@@ -77,4 +77,3 @@ main().catch((e) => {
   console.error(e);
   process.exit(1);
 });
-

@@ -86,12 +86,12 @@ export default function Hero({ title, subtitle, image, ctas }: Props) {
             <div className="absolute inset-0 rounded-2xl ring-2 ring-brand/20 group-hover:ring-brand/40 transition-all duration-500 animate-pulse-ring"></div>
             
             <Image
-              src={image || "/chocolate-chunk-cookies.jpeg"}
+              src={image || "/optimized/1200/chocolate-chunk-cookies.webp"}
               alt={(title || "Big Lou's Bakery") + ' hero image'}
               fill
               className="object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out"
               priority
-              sizes="(max-width:768px) 100vw, (max-width:1024px) 60vw, 50vw"
+              sizes="(max-width:768px) 100vw, (max-width:1024px) 70vw, 60vw"
               quality={90}
               style={{ objectFit: 'cover' }}
             />
