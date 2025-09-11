@@ -114,3 +114,13 @@ Adjust or add shades in `tailwind.config.js`.
 ## License and Assets
 - Code: MIT license (see `LICENSE`).
 - Images/brand assets: Provided for demo only and remain the property of their respective owners; not licensed for reuse or redistribution.
+
+## Image Optimization (Optional)
+- One-time local optimization for assets in `public/`:
+  1) Install tool: `npm i -D sharp`
+  2) Run: `npm run img:optimize`
+  3) Outputs optimized AVIF/WebP variants to `public/optimized/<width>/...`
+- Next.js built-in optimization is enabled (AVIF/WebP). For remote images (Square/Sanity/Unsplash), Next serves optimized formats at the right sizes.
+- Tips:
+  - Prefer using `next/image` with accurate `sizes` hints for best clarity.
+  - Static assets: swap to optimized variants if you want smaller payloads.
