@@ -9,6 +9,7 @@ and leaves room for **Sanity**-powered content pages.
 - `SQUARE_LOCATION_ID`
 - `NEXT_PUBLIC_BASE_URL=http://localhost:3000`
 - (Optional) `SANITY_PROJECT_ID` + `SANITY_DATASET`
+ - (Optional) Instagram Graph API: `IG_USER_ID` + `INSTAGRAM_GRAPH_TOKEN` (falls back to mock without these)
 
 2) `npm install`
 3) `npm run dev`
@@ -21,6 +22,7 @@ and leaves room for **Sanity**-powered content pages.
   - `SQUARE_ACCESS_TOKEN`, `SQUARE_LOCATION_ID`, `SQUARE_ENVIRONMENT`
   - `NEXT_PUBLIC_BASE_URL` (your site URL)
   - Optional Sanity: `SANITY_PROJECT_ID`, `SANITY_DATASET` (and `SANITY_API_READ_TOKEN` only for preview)
+  - Optional Instagram: `IG_USER_ID`, `INSTAGRAM_GRAPH_TOKEN` (Graph API for Business/Creator)
 - Run: `npm install && npm run dev` then open `http://localhost:3000`.
 - Health checks (no secrets in responses): `/api/envdebug`, `/api/squarehealth`, `/api/sanityhealth`.
 
@@ -84,7 +86,15 @@ Set these env vars when using Sanity (public datasets recommended for read-only)
 ### Square Health Check
 - Endpoint: `GET /api/squarehealth` validates env vars and attempts a minimal API call
   - Shows if access token is present, selected environment (sandbox/production), and whether a fetch succeeds.
- - Also returns number of locations and a sample catalog item id if available.
+  - Also returns number of locations and a sample catalog item id if available.
+
+## Instagram (optional)
+- Default behavior: the homepage uses a safe mock feed and links to Instagram. No tokens required.
+- To show real posts from a Business/Creator account via the Instagram Graph API, set:
+  - `IG_USER_ID` (Instagram Business Account ID linked to a Facebook Page)
+  - `INSTAGRAM_GRAPH_TOKEN` (long‑lived Page or System User token with `instagram_basic`)
+  - Optional: `FACEBOOK_GRAPH_VERSION` (default `v18.0`), `INSTAGRAM_CACHE_SECONDS` (default `600`)
+- Endpoint: `GET /api/instagram?limit=6` returns normalized media. If creds are missing or API fails, it serves mock posts unless `INSTAGRAM_DISABLE_FALLBACK=true`.
 
 ## Colors (pulled from logo)
 - brand: #12332e
