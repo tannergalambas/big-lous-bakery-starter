@@ -37,7 +37,8 @@ export default async function AboutPage() {
               alt="Inside the bakery"
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-700"
-              sizes="(min-width:1024px) 40vw, 90vw"
+              sizes="(max-width:768px) 100vw, (max-width:1024px) 80vw, 40vw"
+              quality={85}
               priority
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
@@ -66,7 +67,7 @@ export default async function AboutPage() {
                   <svg className="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <span><span className="font-semibold">Email:</span> hello@biglous.example</span>
+                  <span><span className="font-semibold">Email:</span> biglousbakery@gmail.com</span>
                 </div>
               </div>
             </div>
