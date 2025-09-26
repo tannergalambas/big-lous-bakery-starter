@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import ProductCard from '@/components/ProductCard';
 import ProductFilter from '@/components/ProductFilter';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 type Product = {
   id: string;
@@ -94,6 +95,7 @@ export default function ShopPage() {
   return (
     <div className="min-h-screen pt-8">
       <section className="container py-16">
+        <Breadcrumbs items={[{ label: 'Shop', url: '/shop' }]} />
         <div className="text-center mb-12">
           <h1 className="text-4xl lg:text-5xl font-bold gradient-text mb-6" style={{lineHeight: '1.2', paddingBottom: '0.25rem'}}>Our Bakery</h1>
           <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">

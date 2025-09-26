@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useCart } from '@/store/cart';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 function fmt(amount: number, currency = 'USD') {
   // Store uses dollars. If you switch to cents later, use amount/100 here.
@@ -20,6 +21,7 @@ export default function CartPage() {
 
   return (
     <section className="container py-10">
+      <Breadcrumbs items={[{ label: 'Cart', url: '/cart' }]} />
       <h1 className="text-2xl font-bold mb-6">Your Cart</h1>
 
       {items.length === 0 ? (

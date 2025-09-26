@@ -1,4 +1,5 @@
 import { getFaq } from '@/lib/cms';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export const dynamic = 'force-dynamic';
 
@@ -27,6 +28,7 @@ export default async function FaqPage() {
   return (
     <div className="pt-8">
       <section className="container py-16">
+        <Breadcrumbs items={[{ label: 'FAQ', url: '/faq' }]} />
         <div className="text-center mb-12">
           <h1 className="text-4xl lg:text-5xl font-bold gradient-text mb-6">Frequently Asked Questions</h1>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg">

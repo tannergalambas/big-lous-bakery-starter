@@ -3,6 +3,7 @@ import Image from 'next/image';
 import AddToCartClient from '@/components/AddToCartClient';
 import { formatMoney } from '@/lib/money';
 import { headers } from 'next/headers';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export const dynamic = 'force-dynamic'; // avoid static paths generation in dev
 
@@ -68,6 +69,10 @@ export default async function ProductPage({ params }: { params: { id: string } }
 
   return (
     <section className="container py-10">
+      <Breadcrumbs items={[
+        { label: 'Shop', url: '/shop' },
+        { label: product.name, url: `/products/${product.id}` }
+      ]} />
       <div className="grid md:grid-cols-2 gap-8">
         <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-accent/10">
           {product.image ? (
