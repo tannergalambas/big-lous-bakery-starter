@@ -19,6 +19,31 @@ export default defineConfig({
           .title('Content')
           .items([
             S.listItem()
+              .title('Homepage')
+              .child(
+                S.document()
+                  .schemaType('homepage')
+                  .documentId('homepage')
+                  .title('Homepage')
+              ),
+            S.listItem()
+              .title('Site Settings')
+              .child(
+                S.document()
+                  .schemaType('siteSettings')
+                  .documentId('siteSettings')
+                  .title('Site Settings')
+              ),
+            S.listItem()
+              .title('Navigation')
+              .child(
+                S.document()
+                  .schemaType('navigation')
+                  .documentId('navigation')
+                  .title('Navigation')
+              ),
+            S.divider(),
+            S.listItem()
               .title('Pages')
               .child(
                 S.documentTypeList('page')

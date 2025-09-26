@@ -4,6 +4,7 @@ import ProductCard from '@/components/ProductCard';
 import BrandTicker from '@/components/BrandTicker';
 import InstagramFeed from '@/components/InstagramFeed';
 import NewsletterSignup from '@/components/NewsletterSignup';
+import { getHomepage } from '@/lib/cms';
 import { headers } from 'next/headers';
 
 type Product = {
@@ -40,11 +41,18 @@ async function fetchProducts(): Promise<{ items: Product[] }> {
 export const dynamic = 'force-dynamic';
 
 export default async function Page() {
-  const { items = [] } = await fetchProducts();
+  const [{ items = [] }, homepage] = await Promise.all([
+    fetchProducts(),
+    getHomepage(),
+  ]);
 
   return (
     <div>
-      <Hero />
+      <Hero
+        title={homepage?.heroTitle}
+        subtitle={homepage?.heroSubtitle}
+        ctas={homepage?.ctas}
+      />
 
       <section className="container py-16">
         <div className="text-center mb-12">
