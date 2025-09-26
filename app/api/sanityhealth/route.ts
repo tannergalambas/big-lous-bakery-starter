@@ -10,8 +10,13 @@ function normalize(v?: string | null) {
 }
 
 export async function GET() {
-  const projectId = normalize(process.env.SANITY_PROJECT_ID);
-  const dataset = normalize(process.env.SANITY_DATASET);
+  // Allow fallback to NEXT_PUBLIC_* to make previews work even if misconfigured
+  const projectId = normalize(
+    process.env.SANITY_PROJECT_ID || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
+  );
+  const dataset = normalize(
+    process.env.SANITY_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET
+  );
 
   const idOk = /^[a-z0-9-]+$/.test(projectId);
   const dsOk = /^[a-z0-9-]+$/.test(dataset);
