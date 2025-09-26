@@ -1,12 +1,34 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
-export default function NewsletterSignup() {
+type Props = {
+  title?: string;
+  description?: string;
+  highlights?: string[];
+  successTitle?: string;
+  successDescription?: string;
+};
+
+export default function NewsletterSignup({
+  title,
+  description,
+  highlights,
+  successTitle,
+  successDescription,
+}: Props) {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState('');
+
+  const highlightItems = useMemo(
+    () =>
+      highlights && highlights.length
+        ? highlights
+        : ['Weekly specials', 'Recipe tips', 'Exclusive discounts'],
+    [highlights],
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,9 +69,11 @@ export default function NewsletterSignup() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h3 className="text-2xl font-bold gradient-text mb-3">Welcome to our family! 🎉</h3>
+            <h3 className="text-2xl font-bold gradient-text mb-3">
+              {successTitle || 'Welcome to our family! 🎉'}
+            </h3>
             <p className="text-gray-600 text-lg">
-              You're now subscribed to receive our freshest updates, special offers, and behind-the-scenes content.
+              {successDescription || "You're now subscribed to receive our freshest updates, special offers, and behind-the-scenes content."}
             </p>
           </div>
         </div>
@@ -66,32 +90,22 @@ export default function NewsletterSignup() {
               {/* Content Side */}
               <div className="text-center md:text-left">
                 <h3 className="text-3xl lg:text-4xl font-bold gradient-text mb-4">
-                  Stay Sweet with Us!
+                  {title || 'Stay Sweet with Us!'}
                 </h3>
                 <p className="text-gray-600 text-lg mb-6 leading-relaxed">
-                  Be the first to know about our seasonal specials, new treats, and exclusive offers. 
-                  Plus, get behind-the-scenes content from our kitchen!
+                  {description ||
+                    'Be the first to know about our seasonal specials, new treats, and exclusive offers. Plus, get behind-the-scenes content from our kitchen!'}
                 </p>
-                
+
                 <div className="flex flex-wrap gap-4 justify-center md:justify-start text-sm text-gray-600 mb-6">
-                  <div className="flex items-center gap-2">
-                    <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Weekly specials</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Recipe tips</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Exclusive discounts</span>
-                  </div>
+                  {highlightItems.map((item) => (
+                    <div key={item} className="flex items-center gap-2">
+                      <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>{item}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 

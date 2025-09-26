@@ -224,18 +224,40 @@ export async function getChildrenOf(slug: string, preview = false): Promise<Arra
 export type Homepage = {
   heroTitle?: string;
   heroSubtitle?: string;
+  heroBadge?: string;
   heroImage?: string | null;
   ctas?: Array<{ label: string; href: string }>;
+  featuredHeading?: string;
+  featuredDescription?: string;
+  trustTitle?: string;
+  trustDescription?: string;
+  trustItems?: Array<{ title: string; description?: string }>;
+  newsletterTitle?: string;
+  newsletterDescription?: string;
+  newsletterHighlights?: string[];
+  newsletterSuccessTitle?: string;
+  newsletterSuccessDescription?: string;
 };
 
 export async function getHomepage(preview = false): Promise<Homepage | null> {
   if (sanityDisabled()) return null;
   try {
     const query = groq`*[_type == "homepage"][0]{
+      heroBadge,
       heroTitle,
       heroSubtitle,
       "heroImage": heroImage.asset->url,
-      ctas
+      ctas,
+      featuredHeading,
+      featuredDescription,
+      trustTitle,
+      trustDescription,
+      trustItems,
+      newsletterTitle,
+      newsletterDescription,
+      newsletterHighlights,
+      newsletterSuccessTitle,
+      newsletterSuccessDescription
     }`;
     const client = preview ? sanityFor(true) : sanity;
     const data = await client.fetch<Homepage | null>(query);
@@ -244,4 +266,3 @@ export async function getHomepage(preview = false): Promise<Homepage | null> {
     return null;
   }
 }
-

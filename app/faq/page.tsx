@@ -1,10 +1,16 @@
-import { getFaq } from '@/lib/cms';
+import { getFaq, getPage } from '@/lib/cms';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import RichText from '@/components/RichText';
+import { draftMode } from 'next/headers';
 
 export const dynamic = 'force-dynamic';
 
 export default async function FaqPage() {
-  const cmsFaq = await getFaq();
+  const preview = draftMode().isEnabled;
+  const [cmsFaq, page] = await Promise.all([
+    getFaq(preview),
+    getPage('faq', preview),
+  ]);
   const faq = cmsFaq.length
     ? cmsFaq
     : [
@@ -30,11 +36,18 @@ export default async function FaqPage() {
       <section className="container py-16">
         <Breadcrumbs items={[{ label: 'FAQ', url: '/faq' }]} />
         <div className="text-center mb-12">
-          <h1 className="text-4xl lg:text-5xl font-bold gradient-text mb-6">Frequently Asked Questions</h1>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-            Got questions? We have got answers! Find everything you need to know about our bakery, 
-            orders, and services.
-          </p>
+          <h1 className="text-4xl lg:text-5xl font-bold gradient-text mb-6">
+            {page?.title ?? 'Frequently Asked Questions'}
+          </h1>
+          <div className="max-w-2xl mx-auto text-lg text-gray-600">
+            {Array.isArray(page?.content) ? (
+              <RichText value={page?.content} />
+            ) : (
+              <p>
+                Got questions? We have got answers! Find everything you need to know about our bakery, orders, and services.
+              </p>
+            )}
+          </div>
         </div>
         
         <div className="max-w-4xl mx-auto space-y-6 mb-16">

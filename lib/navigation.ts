@@ -58,9 +58,9 @@ function getIconForNavItem(label: string, url: string): string {
   return 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z';
 }
 
-export async function getHeaderNavigation(): Promise<NavItem[]> {
+export async function getHeaderNavigation(preview = false): Promise<NavItem[]> {
   try {
-    const navigation = await getNavigation();
+    const navigation = await getNavigation(preview);
     
     if (navigation?.headerLinks && navigation.headerLinks.length > 0) {
       // Use CMS navigation and add appropriate icons

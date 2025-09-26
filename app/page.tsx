@@ -5,7 +5,7 @@ import BrandTicker from '@/components/BrandTicker';
 import InstagramFeed from '@/components/InstagramFeed';
 import NewsletterSignup from '@/components/NewsletterSignup';
 import { getHomepage } from '@/lib/cms';
-import { headers } from 'next/headers';
+import { headers, draftMode } from 'next/headers';
 
 type Product = {
   id: string;
@@ -41,10 +41,40 @@ async function fetchProducts(): Promise<{ items: Product[] }> {
 export const dynamic = 'force-dynamic';
 
 export default async function Page() {
+  const preview = draftMode().isEnabled;
   const [{ items = [] }, homepage] = await Promise.all([
     fetchProducts(),
-    getHomepage(),
+    getHomepage(preview),
   ]);
+
+  const featuredHeading =
+    homepage?.featuredHeading ?? 'Featured Products';
+  const featuredDescription =
+    homepage?.featuredDescription ??
+    'Discover our most popular handcrafted treats, baked fresh daily with love and the finest ingredients.';
+
+  const trustTitle = homepage?.trustTitle ?? 'Why choose Big Lou\'s Bakery?';
+  const trustDescription =
+    homepage?.trustDescription ??
+    'We bake every item from scratch using family recipes, premium ingredients, and a whole lot of love.';
+
+  const trustItems =
+    homepage?.trustItems && homepage.trustItems.length > 0
+      ? homepage.trustItems
+      : [
+          {
+            title: 'Fresh Made to Order',
+            description: 'Premium ingredients, scratch-made batches, and baked the day you order.',
+          },
+          {
+            title: 'Local Pickup',
+            description: 'Convenient Austin pickup windows that fit your schedule.',
+          },
+          {
+            title: 'Custom Orders',
+            description: 'From birthdays to weddings, we craft desserts that make every celebration sweeter.',
+          },
+        ];
 
   return (
     <div>
@@ -52,14 +82,15 @@ export default async function Page() {
         title={homepage?.heroTitle}
         subtitle={homepage?.heroSubtitle}
         ctas={homepage?.ctas}
+        badgeText={homepage?.heroBadge}
       />
 
       <section className="container py-16">
         <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold gradient-text mb-4" style={{lineHeight: '1.2', paddingBottom: '0.25rem'}}>Featured Products</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-            Discover our most popular handcrafted treats, baked fresh daily with love and the finest ingredients.
-          </p>
+          <h2 className="text-3xl lg:text-4xl font-bold gradient-text mb-4" style={{ lineHeight: '1.2', paddingBottom: '0.25rem' }}>
+            {featuredHeading}
+          </h2>
+          <p className="text-gray-600 max-w-2xl mx-auto text-lg">{featuredDescription}</p>
         </div>
 
         {items.length === 0 ? (
@@ -123,40 +154,34 @@ export default async function Page() {
 
       <InstagramFeed />
 
-      <NewsletterSignup />
+      <NewsletterSignup
+        title={homepage?.newsletterTitle}
+        description={homepage?.newsletterDescription}
+        highlights={homepage?.newsletterHighlights}
+        successTitle={homepage?.newsletterSuccessTitle}
+        successDescription={homepage?.newsletterSuccessDescription}
+      />
 
       {/* Trust indicators section */}
       <section className="container py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl lg:text-4xl font-bold gradient-text mb-4" style={{ lineHeight: '1.2', paddingBottom: '0.25rem' }}>
+            {trustTitle}
+          </h2>
+          <p className="text-gray-600 max-w-2xl mx-auto text-lg">{trustDescription}</p>
+        </div>
         <div className="grid md:grid-cols-3 gap-8">
-          <div className="text-center group">
-            <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-brand/10 to-brand/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-              <svg className="w-8 h-8 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+          {trustItems.map((item, index) => (
+            <div key={item.title ?? index} className="text-center group">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-brand/10 to-brand/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-8 h-8 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
+              <p className="text-gray-600">{item.description}</p>
             </div>
-            <h3 className="font-semibold text-lg mb-2">Fresh Made to Order</h3>
-            <p className="text-gray-600">Made fresh when you order with premium ingredients</p>
-          </div>
-          
-          <div className="text-center group">
-            <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-brand/10 to-brand/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-              <svg className="w-8 h-8 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-              </svg>
-            </div>
-            <h3 className="font-semibold text-lg mb-2">Local Pickup</h3>
-            <p className="text-gray-600">Convenient pickup available at our bakery location</p>
-          </div>
-          
-          <div className="text-center group">
-            <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-brand/10 to-brand/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-              <svg className="w-8 h-8 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-              </svg>
-            </div>
-            <h3 className="font-semibold text-lg mb-2">Custom Orders</h3>
-            <p className="text-gray-600">Personalized cakes and treats for special occasions</p>
-          </div>
+          ))}
         </div>
       </section>
     </div>

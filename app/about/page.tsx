@@ -1,19 +1,27 @@
 import Image from 'next/image';
-import { getPage } from '@/lib/cms';
+import { getPage, getSiteSettings } from '@/lib/cms';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import RichText from '@/components/RichText';
+import { draftMode } from 'next/headers';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AboutPage() {
-  const cms = await getPage('about');
+  const preview = draftMode().isEnabled;
+  const [cms, settings] = await Promise.all([
+    getPage('about', preview),
+    getSiteSettings(preview),
+  ]);
 
   const title = cms?.title ?? "About Big Lou's Bakery";
-  const content =
-    cms?.content ??
+  const contentBlocks = Array.isArray(cms?.content) ? cms?.content : null;
+  const fallbackContent =
     "We're a family-run bakery passionate about scratch-made cookies, custom cakes, and seasonal pies. Everything is baked fresh with simple ingredients and a whole lot of heart.";
   const image =
     cms?.image ??
     '/A50EBEF1-3C66-4DF6-A00B-F4031DF26BBC_4_5005_c.jpeg';
+  const contactEmail = settings?.email ?? 'hello@biglous.example';
+  const contactLocation = settings?.address ?? 'Austin, Texas';
 
   return (
     <div className="pt-8">
@@ -41,7 +49,11 @@ export default async function AboutPage() {
 
           <div className="space-y-6">
             <div className="card p-8">
-              <p className="text-gray-700 leading-relaxed text-lg whitespace-pre-line">{content}</p>
+              {contentBlocks ? (
+                <RichText value={contentBlocks} />
+              ) : (
+                <p className="text-gray-700 leading-relaxed text-lg whitespace-pre-line">{fallbackContent}</p>
+              )}
             </div>
             
             <div className="card p-6">
@@ -52,13 +64,18 @@ export default async function AboutPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  <span><span className="font-semibold">Location:</span> Austin, Texas</span>
+                  <span><span className="font-semibold">Location:</span> {contactLocation}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <svg className="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <span><span className="font-semibold">Email:</span> hello@biglous.example</span>
+                  <span>
+                    <span className="font-semibold">Email:</span>{' '}
+                    <a href={`mailto:${contactEmail}`} className="text-brand hover:underline">
+                      {contactEmail}
+                    </a>
+                  </span>
                 </div>
               </div>
             </div>
