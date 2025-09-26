@@ -403,3 +403,30 @@ body::before {
   box-shadow: 0 0 30px rgba(18, 51, 46, 0.3);
   transition: box-shadow 0.3s ease;
 }
+
+/* Brand ticker animations */
+@keyframes scroll-right {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-scroll-right {
+  animation: scroll-right 30s linear infinite;
+}
+
+.animate-scroll-left {
+  animation: scroll-left 30s linear infinite;
+}

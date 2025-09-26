@@ -1,6 +1,7 @@
 // app/page.tsx
 import Hero from '@/components/Hero';
 import ProductCard from '@/components/ProductCard';
+import BrandTicker from '@/components/BrandTicker';
 import InstagramFeed from '@/components/InstagramFeed';
 import NewsletterSignup from '@/components/NewsletterSignup';
 import { headers } from 'next/headers';
@@ -109,6 +110,8 @@ export default async function Page() {
           </>
         )}
       </section>
+
+      <BrandTicker />
 
       <InstagramFeed />
 
