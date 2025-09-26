@@ -100,7 +100,7 @@ body::before {
 }
 
 .card { 
-  @apply bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300 group relative overflow-hidden; 
+  @apply bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300 relative overflow-hidden; 
 }
 
 .card::before {
