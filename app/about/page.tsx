@@ -15,6 +15,19 @@ export default async function AboutPage() {
 
   const title = cms?.title ?? "About Big Lou's Bakery";
   const contentBlocks = Array.isArray(cms?.content) ? cms?.content : null;
+
+  const toPlainText = (blocks?: any[] | null) =>
+    Array.isArray(blocks)
+      ? blocks
+          .map((block: any) =>
+            Array.isArray(block?.children)
+              ? block.children.map((child: any) => child?.text ?? '').join(' ')
+              : '',
+          )
+          .join(' ') 
+          .trim()
+      : '';
+
   const fallbackContent =
     "We're a family-run bakery passionate about scratch-made cookies, custom cakes, and seasonal pies. Everything is baked fresh with simple ingredients and a whole lot of heart.";
   const image =
@@ -22,16 +35,19 @@ export default async function AboutPage() {
     '/A50EBEF1-3C66-4DF6-A00B-F4031DF26BBC_4_5005_c.jpeg';
   const contactEmail = settings?.email ?? 'hello@biglous.example';
   const contactLocation = settings?.address ?? 'Austin, Texas';
+  const introText =
+    cms?.seo?.metaDescription || toPlainText(contentBlocks?.slice(0, 1)) ||
+    'Learn more about our story, our passion for baking, and what makes Big Lou\'s Bakery special.';
 
   return (
     <div className="pt-8">
       <section className="container py-16">
         <Breadcrumbs items={[{ label: 'About', url: '/about' }]} />
         <div className="text-center mb-12">
-          <h1 className="text-4xl lg:text-5xl font-bold gradient-text mb-6" style={{lineHeight: '1.15', paddingBottom: '0.25rem'}}>{title}</h1>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-            Learn more about our story, our passion for baking, and what makes Big Lou's Bakery special.
-          </p>
+          <h1 className="text-4xl lg:text-5xl font-bold gradient-text mb-6" style={{ lineHeight: '1.15', paddingBottom: '0.25rem' }}>
+            {title}
+          </h1>
+          <p className="text-gray-600 max-w-2xl mx-auto text-lg">{introText}</p>
         </div>
         
         <div className="grid md:grid-cols-2 gap-12 items-start mb-16">
