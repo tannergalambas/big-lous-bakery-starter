@@ -76,6 +76,33 @@ export default {
       ],
     },
     {
+      name: 'ctaTitle',
+      title: 'Call-to-action heading',
+      type: 'string',
+      description: 'Heading shown above the call-to-action buttons on the page.',
+    },
+    {
+      name: 'ctaDescription',
+      title: 'Call-to-action description',
+      type: 'text',
+      rows: 3,
+      description: 'Short paragraph that appears above the call-to-action buttons.',
+    },
+    {
+      name: 'ctas',
+      title: 'Call-to-action buttons',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'label', title: 'Label', type: 'string', validation: (Rule: any) => Rule.required() },
+            { name: 'href', title: 'Link', type: 'string', validation: (Rule: any) => Rule.required() },
+          ],
+        },
+      ],
+    },
+    {
       name: 'seo',
       title: 'SEO',
       type: 'object',

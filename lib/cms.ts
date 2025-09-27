@@ -16,6 +16,9 @@ export type CmsPage = {
   content?: any;
   image?: string | null;
   seo?: { metaTitle?: string; metaDescription?: string; ogImage?: string | null };
+  ctaTitle?: string;
+  ctaDescription?: string;
+  ctas?: Array<{ label: string; href: string }>;
 };
 
 export async function getPage(slug: string, preview = false): Promise<Maybe<CmsPage>> {
@@ -33,6 +36,9 @@ export async function getPage(slug: string, preview = false): Promise<Maybe<CmsP
         }
       },
       "image": image.asset->url,
+      ctaTitle,
+      ctaDescription,
+      ctas,
       seo{ metaTitle, metaDescription, "ogImage": ogImage.asset->url },
     }`;
 
@@ -74,6 +80,7 @@ export type SiteSettings = {
   seo?: { metaTitle?: string; metaDescription?: string; ogImage?: string | null };
   featuredProductIds?: string[];
   footerText?: string;
+  contactFormSubmitLabel?: string;
 };
 
 export async function getSiteSettings(preview = false): Promise<SiteSettings | null> {
@@ -82,6 +89,7 @@ export async function getSiteSettings(preview = false): Promise<SiteSettings | n
     const query = groq`*[_type == "siteSettings"][0]{
       siteName, tagline, email, phone, address, hours,
       social,
+      contactFormSubmitLabel,
       seo{ metaTitle, metaDescription, "ogImage": ogImage.asset->url },
       featuredProductIds,
       footerText
@@ -235,6 +243,7 @@ export type Homepage = {
   newsletterTitle?: string;
   newsletterDescription?: string;
   newsletterHighlights?: string[];
+  newsletterButtonLabel?: string;
   newsletterSuccessTitle?: string;
   newsletterSuccessDescription?: string;
 };
@@ -256,6 +265,7 @@ export async function getHomepage(preview = false): Promise<Homepage | null> {
       newsletterTitle,
       newsletterDescription,
       newsletterHighlights,
+      newsletterButtonLabel,
       newsletterSuccessTitle,
       newsletterSuccessDescription
     }`;

@@ -46,6 +46,11 @@ export default {
       ],
     },
     {
+      name: 'contactFormSubmitLabel',
+      title: 'Contact form button label',
+      type: 'string',
+    },
+    {
       name: 'featuredProductIds',
       title: 'Featured product IDs',
       type: 'array',

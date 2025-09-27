@@ -16,6 +16,9 @@ export type Product = {
 type Props = {
   title: string;
   description: string;
+  ctaTitle?: string;
+  ctaDescription?: string;
+  ctas?: Array<{ label: string; href: string }>;
 };
 
 function categorizeProduct(product: Product): string {
@@ -46,7 +49,7 @@ async function fetchProducts(): Promise<{ items: Product[] }> {
   }
 }
 
-export default function ShopPageClient({ title, description }: Props) {
+export default function ShopPageClient({ title, description, ctaTitle, ctaDescription, ctas }: Props) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -116,12 +119,28 @@ export default function ShopPageClient({ title, description }: Props) {
             We're currently updating our product catalog. Please check back soon or contact us directly for special orders.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button onClick={() => window.location.reload()} className="btn btn-brand">
-              Refresh Catalog
-            </button>
-            <a href="/contact" className="btn bg-white border border-brand/20 text-brand hover:bg-brand/5">
-              Contact Us
-            </a>
+            {(ctas && ctas.length ? ctas : [
+              { label: 'Refresh Catalog', href: '#' },
+              { label: 'Contact Us', href: '/contact' },
+            ]).map((cta, index) =>
+              cta.href === '#' ? (
+                <button key={`${cta.label}-${index}`} onClick={() => window.location.reload()} className="btn btn-brand">
+                  {cta.label}
+                </button>
+              ) : (
+                <a
+                  key={cta.href}
+                  href={cta.href}
+                  className={
+                    index === 0
+                      ? 'btn btn-brand'
+                      : 'btn bg-white border border-brand/20 text-brand hover:bg-brand/5'
+                  }
+                >
+                  {cta.label}
+                </a>
+              )
+            )}
           </div>
         </div>
       ) : (
@@ -160,13 +179,28 @@ export default function ShopPageClient({ title, description }: Props) {
 
           <div className="mt-16 text-center">
             <div className="card p-8 max-w-2xl mx-auto">
-              <h3 className="text-xl font-semibold mb-3">Looking for something special?</h3>
+              <h3 className="text-xl font-semibold mb-3">{ctaTitle || 'Looking for something special?'}</h3>
               <p className="text-gray-600 mb-6">
-                We create custom cakes and treats for birthdays, weddings, and special occasions. Contact us to discuss your perfect dessert!
+                {ctaDescription ||
+                  'We create custom cakes and treats for birthdays, weddings, and special occasions. Contact us to discuss your perfect dessert!'}
               </p>
-              <a href="/contact" className="btn btn-brand">
-                Request Custom Order
-              </a>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                {(ctas && ctas.length ? ctas : [
+                  { label: 'Request Custom Order', href: '/contact' },
+                ]).map((cta, index) => (
+                  <a
+                    key={cta.href}
+                    href={cta.href}
+                    className={
+                      index === 0
+                        ? 'btn btn-brand'
+                        : 'btn bg-white border border-brand/20 text-brand hover:bg-brand/5'
+                    }
+                  >
+                    {cta.label}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </>

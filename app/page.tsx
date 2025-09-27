@@ -158,6 +158,7 @@ export default async function Page() {
         title={homepage?.newsletterTitle}
         description={homepage?.newsletterDescription}
         highlights={homepage?.newsletterHighlights}
+        buttonLabel={homepage?.newsletterButtonLabel}
         successTitle={homepage?.newsletterSuccessTitle}
         successDescription={homepage?.newsletterSuccessDescription}
       />

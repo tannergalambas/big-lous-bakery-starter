@@ -39,6 +39,16 @@ export default async function AboutPage() {
     toPlainText(contentBlocks?.slice(0, 1)) ||
     cms?.seo?.metaDescription ||
     'Learn more about our story, our passion for baking, and what makes Big Lou\'s Bakery special.';
+  const ctaTitle = cms?.ctaTitle ?? 'Ready to try our treats?';
+  const ctaDescription =
+    cms?.ctaDescription ?? 'Browse our selection of fresh-baked goods or contact us for custom orders.';
+  const ctas =
+    cms?.ctas && cms?.ctas.length
+      ? cms.ctas
+      : [
+          { label: 'Shop Now', href: '/shop' },
+          { label: 'View FAQ', href: '/faq' },
+        ];
 
   return (
     <div className="pt-8">
@@ -102,17 +112,22 @@ export default async function AboutPage() {
         {/* Call to action */}
         <div className="text-center">
           <div className="card p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-semibold mb-4 gradient-text">Ready to try our treats?</h3>
-            <p className="text-gray-600 mb-6">
-              Browse our selection of fresh-baked goods or contact us for custom orders.
-            </p>
+            <h3 className="text-2xl font-semibold mb-4 gradient-text">{ctaTitle}</h3>
+            <p className="text-gray-600 mb-6">{ctaDescription}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/shop" className="btn btn-brand">
-                Shop Now
-              </a>
-              <a href="/faq" className="btn bg-white border border-brand/20 text-brand hover:bg-brand/5">
-                View FAQ
-              </a>
+              {ctas.map((cta, index) => (
+                <a
+                  key={cta.href}
+                  href={cta.href}
+                  className={
+                    index === 0
+                      ? 'btn btn-brand'
+                      : 'btn bg-white border border-brand/20 text-brand hover:bg-brand/5'
+                  }
+                >
+                  {cta.label}
+                </a>
+              ))}
             </div>
           </div>
         </div>

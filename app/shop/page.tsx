@@ -25,13 +25,22 @@ export default async function ShopPage() {
   const description =
     toPlainText(page?.content) ||
     'Explore our complete collection of handcrafted treats. From classic cookies to custom celebration cakes, every item is made fresh daily with premium ingredients and traditional baking methods.';
+  const ctaTitle = page?.ctaTitle;
+  const ctaDescription = page?.ctaDescription;
+  const ctas = page?.ctas && page?.ctas.length ? page?.ctas : undefined;
 
   return (
     <div className="min-h-screen pt-8">
       <div className="container">
         <Breadcrumbs items={[{ label: 'Shop', url: '/shop' }]} />
       </div>
-      <ShopPageClient title={title} description={description} />
+      <ShopPageClient
+        title={title}
+        description={description}
+        ctaTitle={ctaTitle}
+        ctaDescription={ctaDescription}
+        ctas={ctas}
+      />
     </div>
   );
 }

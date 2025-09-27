@@ -6,6 +6,7 @@ type Props = {
   title?: string;
   description?: string;
   highlights?: string[];
+  buttonLabel?: string;
   successTitle?: string;
   successDescription?: string;
 };
@@ -14,6 +15,7 @@ export default function NewsletterSignup({
   title,
   description,
   highlights,
+  buttonLabel,
   successTitle,
   successDescription,
 }: Props) {
@@ -157,7 +159,7 @@ export default function NewsletterSignup({
                       </span>
                     ) : (
                       <span className="flex items-center justify-center gap-2">
-                        Subscribe for Sweet Updates
+                        {buttonLabel || 'Subscribe for Sweet Updates'}
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>

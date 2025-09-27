@@ -4,9 +4,10 @@ import { useState } from 'react';
 
 type Props = {
   onSuccessMessage?: string;
+  submitLabel?: string;
 };
 
-export default function ContactForm({ onSuccessMessage }: Props) {
+export default function ContactForm({ onSuccessMessage, submitLabel }: Props) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -188,7 +189,7 @@ export default function ContactForm({ onSuccessMessage }: Props) {
             Sending...
           </span>
         ) : (
-          'Send Message'
+          submitLabel || 'Send Message'
         )}
       </button>
     </form>

@@ -22,6 +22,13 @@ export default async function ContactPage() {
   const email = settings?.email ?? 'hello@biglous.example';
   const phone = settings?.phone ?? '(512) 555-0134';
   const hours = settings?.hours;
+  const ctaTitle = page?.ctaTitle ?? 'Need something custom?';
+  const ctaDescription =
+    page?.ctaDescription ?? 'Include your event date, guest count, and flavor ideas. We love crafting desserts made just for you!';
+  const ctas =
+    page?.ctas && page?.ctas.length
+      ? page.ctas
+      : [];
 
   return (
     <div className="pt-8">
@@ -39,7 +46,10 @@ export default async function ContactPage() {
         <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           <div className="card p-8">
             <h2 className="text-2xl font-semibold mb-6 text-brand">Send us a Message</h2>
-            <ContactForm onSuccessMessage="We've received your message and will get back to you soon." />
+            <ContactForm
+              onSuccessMessage="We've received your message and will get back to you soon."
+              submitLabel={settings?.contactFormSubmitLabel}
+            />
           </div>
 
           <div className="card p-8 bg-white/80 backdrop-blur">
@@ -97,11 +107,26 @@ export default async function ContactPage() {
               ) : null}
             </div>
 
-            <div className="mt-8 p-6 bg-brand/5 rounded-2xl border border-brand/10">
-              <h4 className="font-semibold text-lg mb-2 text-brand">Need something custom?</h4>
-              <p className="text-gray-600">
-                Include your event date, guest count, and flavor ideas. We love crafting desserts made just for you!
-              </p>
+            <div className="mt-8 p-6 bg-brand/5 rounded-2xl border border-brand/10 text-center md:text-left">
+              <h4 className="font-semibold text-lg mb-2 text-brand">{ctaTitle}</h4>
+              <p className="text-gray-600 mb-4">{ctaDescription}</p>
+              {ctas.length ? (
+                <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+                  {ctas.map((cta, index) => (
+                    <a
+                      key={cta.href}
+                      href={cta.href}
+                      className={
+                        index === 0
+                          ? 'btn btn-brand'
+                          : 'btn bg-white border border-brand/20 text-brand hover:bg-brand/5'
+                      }
+                    >
+                      {cta.label}
+                    </a>
+                  ))}
+                </div>
+              ) : null}
             </div>
           </div>
         </div>

@@ -96,6 +96,11 @@ export default {
       of: [{ type: 'string' }],
     },
     {
+      name: 'newsletterButtonLabel',
+      title: 'Newsletter button label',
+      type: 'string',
+    },
+    {
       name: 'newsletterSuccessTitle',
       title: 'Newsletter success title',
       type: 'string',

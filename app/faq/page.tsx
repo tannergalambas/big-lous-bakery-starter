@@ -73,18 +73,30 @@ export default async function FaqPage() {
         {/* Contact section */}
         <div className="text-center">
           <div className="card p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-semibold mb-4 gradient-text">Still have questions?</h3>
+            <h3 className="text-2xl font-semibold mb-4 gradient-text">
+              {page?.ctaTitle ?? 'Still have questions?'}
+            </h3>
             <p className="text-gray-600 mb-6">
-              Cannot find what you are looking for? We are here to help! Contact us directly 
-              and we will get back to you as soon as possible.
+              {page?.ctaDescription ??
+                'Cannot find what you are looking for? We are here to help! Contact us directly and we will get back to you as soon as possible.'}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/about" className="btn btn-brand">
-                Contact Us
-              </a>
-              <a href="/shop" className="btn bg-white border border-brand/20 text-brand hover:bg-brand/5">
-                Browse Products
-              </a>
+              {(page?.ctas && page?.ctas.length ? page.ctas : [
+                { label: 'Contact Us', href: '/about' },
+                { label: 'Browse Products', href: '/shop' },
+              ]).map((cta, index) => (
+                <a
+                  key={cta.href}
+                  href={cta.href}
+                  className={
+                    index === 0
+                      ? 'btn btn-brand'
+                      : 'btn bg-white border border-brand/20 text-brand hover:bg-brand/5'
+                  }
+                >
+                  {cta.label}
+                </a>
+              ))}
             </div>
           </div>
         </div>
