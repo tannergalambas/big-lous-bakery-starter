@@ -36,7 +36,8 @@ export default async function AboutPage() {
   const contactEmail = settings?.email ?? 'hello@biglous.example';
   const contactLocation = settings?.address ?? 'Austin, Texas';
   const introText =
-    cms?.seo?.metaDescription || toPlainText(contentBlocks?.slice(0, 1)) ||
+    toPlainText(contentBlocks?.slice(0, 1)) ||
+    cms?.seo?.metaDescription ||
     'Learn more about our story, our passion for baking, and what makes Big Lou\'s Bakery special.';
 
   return (
